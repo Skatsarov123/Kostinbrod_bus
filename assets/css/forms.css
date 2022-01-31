@@ -12,8 +12,26 @@ form, form fieldset, form legend, form label, form input, form textarea, form se
 	width: 100%;
 	border: none;
 	padding: 0.4rem;
+	text-align: center;
 }
-
+form .create{
+	position: fixed;
+	/* center the element */
+	right: 0;
+	left: 0;
+	margin-right: auto;
+	margin-left: auto;
+	/* give it dimensions */
+	min-height: 10em;
+	width: 20%;
+}
+form .submit{
+	background:rgb(13,110,253);
+	margin-top: 1rem;
+	border: 1px transparent;
+	border-radius: 15px;
+	color: white;
+}
 form textarea {
 	border: none;
 	background: transparent;
@@ -130,5 +148,8 @@ form textarea:focus {
 
 .details span.likes {
 	display: flex;
-    flex-direction: column;
+	flex-direction: column;
+}
+.scheduleTime{
+	white-space: pre-wrap;
 }

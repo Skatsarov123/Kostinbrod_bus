@@ -13,7 +13,6 @@ security:
     firewalls:
         register:
             pattern: ^/api/register
-            # anonymous: true
         login:
             pattern: ^/api/login
             stateless: true
@@ -24,14 +23,13 @@ security:
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
         api:
-            pattern:   ^/api
+            pattern: ^/api
             stateless: true
-            jwt: ~
-            #guard:
-            #    authenticators:
-            #        - lexik_jwt_authentication.jwt_token_authenticator
-
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
     access_control:
-        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+            - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+            - { path: ^/market,       roles: IS_AUTHENTICATED_FULLY }

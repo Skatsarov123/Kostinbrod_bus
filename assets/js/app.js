@@ -12,6 +12,8 @@ import Create from './components/Create';
 import Dashboard from "./components/Dashboard";
 import MyProfile from "./components/MyProfile";
 import Logout from "./components/Logout";
+import GuardedRoute from './components/Common/GuardedRoute';
+import Edit from "./components/Edit";
 
 function App() {
 
@@ -27,12 +29,18 @@ function App() {
                 <main id="site-content">
                     <Routes>
 
-                        <Route path="/dashboard" element={<Dashboard/>} />
-                        <Route path="/my-profile" element={<MyProfile/>} />
-                        <Route path="/create" element={<Create />} />
+                        <Route path="/" element={<Dashboard/>} />
+
+
+                        <Route element={<GuardedRoute />}>
+                            <Route path="/create" element={<Create />} />
+                            <Route path="/my-profile" element={<MyProfile/>} />
+                        </Route>
+
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/logout" element={<Logout />} />
+                        <Route path="/edit/:scheduleId" element={<Edit />} />
 
                     </Routes>
                 </main>

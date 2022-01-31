@@ -18,7 +18,7 @@ const Register = () => {
             .then(authData => {
                 login(authData);
 
-                navigate('/dashboard');
+                navigate('/');
             });
     }
 

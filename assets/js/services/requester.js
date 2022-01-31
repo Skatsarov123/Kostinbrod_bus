@@ -8,7 +8,7 @@ export const request = async (method, url, data) => {
             method,
             headers: {
                 'content-type': 'application/json',
-                'X-Authorization': getToken()
+                'Authorization': getToken()
             },
             body: JSON.stringify(data)
         });
@@ -37,7 +37,7 @@ function getToken() {
 
         let user = JSON.parse(userItem);
 
-        return user.accessToken;
+        return user.token;
     } catch(err) {
         console.log(err);
     }

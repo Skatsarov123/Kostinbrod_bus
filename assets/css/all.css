@@ -6,7 +6,6 @@ body {
 }
 
 .basic {
-    background: linear-gradient(rgba(250, 248, 248, 0.2), rgba(25, 167, 173, 0.2)), url(../img/We-need-to-talk-about-pets.jpg) no-repeat center;
     background-size: cover;
     height: 85vh;
     position: relative;
@@ -189,4 +188,7 @@ textarea#description {
     margin-bottom: 15px;
     padding: 10px;
     box-shadow: -8px -2px 28px -8px #000000;
+}
+.table tr td.scheduleTime{
+    white-space: pre-wrap;
 }

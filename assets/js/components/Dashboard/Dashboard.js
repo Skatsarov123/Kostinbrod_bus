@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react';
 import React from "react";
-import * as marketService from '../../services/marketService'
+import * as ScheduleService from '../../services/scheduleService'
 import './Dashboard.css';
-import MarketList from "../MarketList";
+import ScheduleList from "../SheduleList";
+
 
 const Dashboard = () => {
-    const [markets, setMarkets] = useState([]);
-
+    const [schedules, setSchedules] = useState([]);
     useEffect(() => {
-        marketService.getAll()
+        ScheduleService.getAll()
             .then(result => {
-
-                setMarkets(result);
+                setSchedules(result);
             })
             .catch(err => {
                 console.log(err);
@@ -22,7 +21,7 @@ const Dashboard = () => {
         <section id="dashboard-page" className="dashboard">
 
             <section>
-                <MarketList markets={markets} />
+                <ScheduleList schedules={schedules} />
             </section>
         </section>
         

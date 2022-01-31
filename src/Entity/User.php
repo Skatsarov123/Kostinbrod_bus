@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Pure;
@@ -16,11 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface , JWTUserInterface
 {
-    public function __construct($username)
-    {
-        $this->username = $username;
 
-    }
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -31,7 +27,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface , JWTUse
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private  $username;
+    private string $username;
 
     /**
      * @ORM\Column(type="json")
@@ -53,27 +49,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface , JWTUse
      * @ORM\Column(type="datetime_immutable")
      */
     private ?\DateTimeImmutable $createdAt;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Market" ,mappedBy="author")
-     */
-    private $offerOwner;
-
-    /**
-     * @return mixed
-     */
-    public function getOfferOwner()
-    {
-        return $this->offerOwner;
-    }
-
-    /**
-     * @param mixed $offerOwner
-     */
-    public function setOfferOwner($offerOwner): void
-    {
-        $this->offerOwner = $offerOwner;
-    }
 
 
     public function getId(): ?int

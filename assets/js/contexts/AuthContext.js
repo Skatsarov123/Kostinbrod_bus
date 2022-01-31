@@ -4,6 +4,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 const initialAuthState = {
     username:'',
     token: '',
+    id:''
 };
 
 export const AuthContext = createContext();
