@@ -18,7 +18,7 @@ import Edit from "./components/Edit";
 function App() {
 
         return (
-            <React.StrictMode>
+
 
             <ErrorBoundary>
                 <AuthProvider>
@@ -53,11 +53,11 @@ function App() {
                 </AuthProvider>
             </ErrorBoundary>
 
-            </React.StrictMode>
+
         )
 
 }
-    ReactDOM.render(<Router ><App/></Router>, document.getElementById('root'));
+    ReactDOM.render(<Router ><App/></Router> , document.getElementById('root'));
 
 
 

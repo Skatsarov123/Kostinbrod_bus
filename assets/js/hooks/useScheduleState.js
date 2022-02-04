@@ -15,10 +15,8 @@ const useScheduleState = (scheduleId) => {
 
         scheduleService.getOne(scheduleId, controller.signal)
             .then(scheduleResult => {
-
                 setSchedule(scheduleResult);
             })
-
 
         return () => {
             controller.abort();

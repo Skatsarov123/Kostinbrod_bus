@@ -66,21 +66,11 @@ class ScheduleController extends AbstractController
     public function getOne(Request $request): JsonResponse
     {
 
-        $schedule = $this->scheduleRepository->findBy(['id'=>$request->get('id')]);
+        $schedule = $this->scheduleRepository->findoneBy(['id'=>$request->get('id')]);
 
-
-        $arrayCollection = array();
-        foreach($schedule as $item) {
-            $arrayCollection[] = array(
-                'id' => $item->getId(),
-                'name'=>$item->getName(),
-                'departure_time'=>$item->getDepartureTime(),
-                'place' =>$item->getPlace(),
-
-            );
-        }
-
-        return new JsonResponse($arrayCollection);
+        return new JsonResponse(
+          $this->serializer->serialize($schedule, 'json'), 201
+        );
     }
 
     /**
