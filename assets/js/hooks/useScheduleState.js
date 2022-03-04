@@ -2,7 +2,8 @@ import { useState, useEffect, useMemo } from 'react';
 import * as scheduleService from '../services/scheduleService';
 
 const useScheduleState = (scheduleId) => {
-    const [schedule, setSchedule] = useState({});
+    const [schedule, setSchedule] =  useState({});
+
 
 
     const controller = useMemo(() => {
@@ -16,6 +17,7 @@ const useScheduleState = (scheduleId) => {
         scheduleService.getOne(scheduleId, controller.signal)
             .then(scheduleResult => {
                 setSchedule(scheduleResult);
+
             })
 
         return () => {
@@ -25,8 +27,11 @@ const useScheduleState = (scheduleId) => {
 
     return [
         schedule,
-        setSchedule
+        setSchedule,
+
+
     ]
+
 };
 
 export default useScheduleState;

@@ -32,7 +32,7 @@ export const update = (scheduleId, scheduleData) => request.put(`${baseUrl}/upda
 
 export const getOne = (scheduleId, signal) => {
 
-    return fetch(`${baseUrl}/getOne/${scheduleId}`)
+    return fetch(`${baseUrl}/getOne/${scheduleId}`, { signal })
 
         .then(res => res.json())
 

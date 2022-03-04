@@ -69,7 +69,8 @@ const Create = () => {
                             return (
                                 <div className="">
                                     <div className="input">
-                                        <input type="time" name="departure_time" id="departure_time" placeholder="8:45"
+                                        <input
+                                            type="text" name="departure_time" id="departure_time" placeholder="8:45"
                                                value={x.departure_time} onChange={e => handleInputChange(e, i)}/>
                                   </div>
                                     {inputList.length !== 1 && <button
@@ -88,7 +89,7 @@ const Create = () => {
                             <input type="place" name="place" id="place" placeholder="Sofia"/>
                         </div>
                     </span>
-                    <input className="button submit" type="submit" value="Създай"/>
+                    <input className="button submit" type="submit" value="Добави"/>
                 </fieldset>
             </form>
 

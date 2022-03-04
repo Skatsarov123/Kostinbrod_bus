@@ -1,4 +1,4 @@
-import React from "react";
+import React, {StrictMode} from "react";
 import { Routes, Route, BrowserRouter as Router    } from 'react-router-dom';
 import Header from './components/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,6 +14,7 @@ import MyProfile from "./components/MyProfile";
 import Logout from "./components/Logout";
 import GuardedRoute from './components/Common/GuardedRoute';
 import Edit from "./components/Edit";
+
 
 function App() {
 
@@ -57,7 +58,7 @@ function App() {
         )
 
 }
-    ReactDOM.render(<Router ><App/></Router> , document.getElementById('root'));
+    ReactDOM.render( <StrictMode><Router ><App/></Router> </StrictMode>, document.getElementById('root'));
 
 
 

@@ -63,14 +63,20 @@ class ScheduleController extends AbstractController
     }
 
     #[Route('/getOne/{id}', name: 'schedule_getOne')]
-    public function getOne(Request $request): JsonResponse
+    public function getOne($id): JsonResponse
     {
 
-        $schedule = $this->scheduleRepository->findoneBy(['id'=>$request->get('id')]);
+        $item = $this->scheduleRepository-> findOneBy(['id'=>$id]);
 
-        return new JsonResponse(
-          $this->serializer->serialize($schedule, 'json'), 201
-        );
+
+        $schedule = [
+            'id' => $item->getId(),
+            'name'=>$item->getName(),
+            'departure_time'=>$item->getDepartureTime(),
+            'place' =>$item->getPlace(),
+        ];
+
+        return new JsonResponse($schedule, Response::HTTP_OK);
     }
 
     /**
@@ -88,9 +94,8 @@ class ScheduleController extends AbstractController
 
         $updatedSchedule = $this->scheduleRepository->update($schedule);
 
-        return new JsonResponse([
-            'schedule' => $this->serializer->serialize($updatedSchedule, 'json'),], 201
-        );
+        return new JsonResponse($updatedSchedule, Response::HTTP_OK);
+       
 
     }
 }
