@@ -1,5 +1,6 @@
 import * as request from './requester';
 
+
 const baseUrl = 'http://localhost:8000/schedule';
 
 export const getAll = () => request.get(`${baseUrl}/all`);
@@ -27,7 +28,22 @@ export const create = async (scheduleData,token) => {
     return result;
 };
 
-export const update = (scheduleId, scheduleData) => request.put(`${baseUrl}/update/${scheduleId}`, scheduleData);
+export const update = async  (scheduleId,token,scheduleData) => {
+
+
+    let response = await fetch(`${baseUrl}/update/${scheduleId}`, {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json',
+            'Authorization': token
+        },
+        body: JSON.stringify({...scheduleData})
+    });
+
+    let result = await response.json();
+
+    return result;
+};
 
 
 export const getOne = (scheduleId, signal) => {

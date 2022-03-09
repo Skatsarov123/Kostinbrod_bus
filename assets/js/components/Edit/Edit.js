@@ -2,23 +2,36 @@ import React, {useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import * as scheduleService from '../../services/scheduleService';
 import useScheduleState from '../../hooks/useScheduleState';
+import {useAuthContext} from "../../contexts/AuthContext";
 
 
 
 const Edit = () => {
+    const { user } = useAuthContext();
     const navigate = useNavigate();
     const { scheduleId } = useParams()
-    const [schedule, setSchedule] = useScheduleState(scheduleId);
+    const [schedule,startTime,setStartTime] = useScheduleState(scheduleId);
 
-  
-    const [inputList, setInputList] = useState([{  departure_time: "11:00"},{  departure_time: '12:00'}]);
+
 
     const scheduleEditSubmitHandler = (e) => {
         e.preventDefault();
+        let formData = new FormData(e.currentTarget);
 
-        let currentSchedule =Object.fromEntries(new FormData(e.currentTarget))
+        let name = formData.get('name');
+        let startPoint = formData.get('startPoint');
+        let endPoint = formData.get('endPoint');
+        let departure_time = formData.getAll('departure_time');
+        let place = formData.get('place');
 
-        scheduleService.update(scheduleId,currentSchedule)
+        scheduleService.create({
+            name,
+            startPoint,
+            endPoint,
+            departure_time,
+            place,
+
+        }, user.token)
             .then(result => {
                 navigate('/');
             })
@@ -27,27 +40,24 @@ const Edit = () => {
 
     // handle input change
     const handleInputChange = (e, index) => {
-        const { name, value } = e.target;
-        const list = [...inputList];
-        list[index][name] = value;
-        setInputList(list);
+        const { value } = e.target;
+        const list = [...startTime];
+        list[index] = value;
+        setStartTime(list);
     };
 
     // handle click event of the Remove button
     const handleRemoveClick = index => {
-        const list = [...inputList];
+        const list = [...startTime];
         list.splice(index, 1);
-        setInputList(list);
+        setStartTime(list);
     };
     // handle click event of the Add button
     const handleAddClick = () => {
-        setInputList([...inputList, { departure_time: []}]);
+        setStartTime([...startTime, {startTime }]);
     };
     return (
-
         <section id="create-page" className="create">
-
-
             <form id="edit-form"  method="POST" onSubmit={scheduleEditSubmitHandler}>
                 <fieldset className='edit'>
                     <h3>Редактирай разписание</h3>
@@ -55,24 +65,34 @@ const Edit = () => {
                         <label htmlFor="name">Име</label>
                         <div className="input">
                             <input  type="name" name="name" id="name" defaultValue={schedule.name}/>
-
+                        </div>
+                    </span>
+                    <span className="field">
+                        <label htmlFor="name">Име</label>
+                        <div className="input">
+                            <input  type="text" name="startPoint" id="startPoint" defaultValue={schedule.startPoint}/>
+                        </div>
+                    </span>
+                    <span className="field">
+                        <label htmlFor="name">Име</label>
+                        <div className="input">
+                            <input  type="text" name="endPoint" id="endPoint" defaultValue={schedule.endPoint}/>
                         </div>
                     </span>
                     <span className="field">
                         <label htmlFor="name">Час на тръгване</label>
-                        { inputList.map((x, i) => {
-
+                        { startTime.map((x, i) => {
                             return (
                                 <div key={i} className="">
                                     <div   className="input">
-                                        <input  type="text" name="departure_time" id="departure_time"
-                                               value = {x.departure_time} onChange={e => handleInputChange(e, i)}/>
+                                        <input  type="time" name="departure_time" id="departure_time"
+                                                value={x}  onChange={e => handleInputChange(e, i)}/>
                                     </div>
-                                    {inputList.length !== 1 && <button
+                                    {startTime.length !== 1 && <button
                                         className="button submit"
                                         onClick={() => handleRemoveClick(i)}>Премахни</button>}
-                                    {inputList.length - 1 === i &&
-                                        <button className="button submit" type="text" name="departure_time" id="departure_time"
+                                    {startTime.length - 1 === i &&
+                                        <button className="button submit"
                                                 onClick={handleAddClick}>Добави</button>}
                                 </div>
                             );

@@ -18,12 +18,12 @@ const Details = () => {
     const [pet, setPet] = useScheduleState(petId);
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
-    useEffect(() => {
-        likeService.getPetLikes(petId)
-            .then(likes => {
-                setPet(state => ({...state, likes}))
-            })
-    }, []);
+    // useEffect(() => {
+    //     likeService.getPetLikes(petId)
+    //         .then(likes => {
+    //             setPet(state => ({...state, likes}))
+    //         })
+    // }, []);
 
     const deleteHandler = (e) => {
         e.preventDefault();

@@ -16,7 +16,7 @@ class ScheduleController extends AbstractController
 {
     public function __construct(
         private ScheduleRepository      $scheduleRepository,
-        private SerializerInterface $serializer
+
     )
     {
 
@@ -30,6 +30,8 @@ class ScheduleController extends AbstractController
         foreach($data as $item) {
             $arrayCollection[] = array(
                 'id' => $item->getId(),
+                'startPoint' =>$item->getStartPoint(),
+                'endPoint' =>$item->getendPoint(),
                 'name'=>$item->getName(),
                 'departure_time'=>$item->getDepartureTime(),
                 'place' =>$item->getPlace(),
@@ -56,9 +58,9 @@ class ScheduleController extends AbstractController
 
             $jsonData = json_decode($request->getContent());
             $schedule = $this->scheduleRepository->create($jsonData);
-            return new JsonResponse([
-                'schedule' => $this->serializer->serialize($schedule, 'json'),], 201
-            );
+
+            return new JsonResponse($schedule, Response::HTTP_OK);
+
         }
     }
 
@@ -71,6 +73,8 @@ class ScheduleController extends AbstractController
 
         $schedule = [
             'id' => $item->getId(),
+            'startPoint' =>$item->getStartPoint(),
+            'endPoint' =>$item->getEndPoint(),
             'name'=>$item->getName(),
             'departure_time'=>$item->getDepartureTime(),
             'place' =>$item->getPlace(),
@@ -89,8 +93,11 @@ class ScheduleController extends AbstractController
 
 
         empty($data['name']) ? true : $schedule->setName($data['name']);
+        empty($data['startPoint']) ? true : $schedule->setStartPoint($data['startPoint']);
+        empty($data['endPoint']) ? true : $schedule->setEndPoint($data['endPoint']);
         empty($data['departure_time']) ? true : $schedule->setDepartureTime($data['departure_time']);
         empty($data['place']) ? true : $schedule->setPlace($data['place']);
+
 
         $updatedSchedule = $this->scheduleRepository->update($schedule);
 

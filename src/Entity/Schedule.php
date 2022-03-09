@@ -23,6 +23,15 @@ class Schedule
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $startPoint;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $endPoint;
+    /**
      * @ORM\Column(type="array")
      */
     private $departure_time;
@@ -31,6 +40,39 @@ class Schedule
      * @ORM\Column(type="array")
      */
     private $place;
+    /**
+     * @return mixed
+     */
+    public function getStartPoint()
+    {
+        return $this->startPoint;
+    }
+
+    /**
+     * @param mixed $startPoint
+     */
+    public function setStartPoint($startPoint): void
+    {
+        $this->startPoint = $startPoint;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEndPoint()
+    {
+        return $this->endPoint;
+    }
+
+    /**
+     * @param mixed $endPoint
+     */
+    public function setEndPoint($endPoint): void
+    {
+        $this->endPoint = $endPoint;
+    }
+
+
 
     public function getId(): ?int
     {

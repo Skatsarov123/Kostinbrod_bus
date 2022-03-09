@@ -17,11 +17,15 @@ const Create = () => {
         let formData = new FormData(e.currentTarget);
 
         let name = formData.get('name');
+        let startPoint = formData.get('startPoint');
+        let endPoint = formData.get('endPoint');
         let departure_time = formData.getAll('departure_time');
         let place = formData.get('place');
 
         scheduleService.create({
             name,
+            startPoint,
+            endPoint,
             departure_time,
             place,
 
@@ -60,7 +64,19 @@ const Create = () => {
                     <span className="field">
                         <label htmlFor="name">Име</label>
                         <div className="input">
-                            <input type="name" name="name" id="name" placeholder="Sofia-Kostinbrod"/>
+                            <input type="text" name="name" id="name" placeholder="Sofia-Kostinbrod"/>
+                        </div>
+                    </span>
+                    <span className="field">
+                        <label htmlFor="startPoint">Начало</label>
+                        <div className="input">
+                            <input type="text" name="startPoint" id="startPoint" placeholder="Sofia"/>
+                        </div>
+                    </span>
+                    <span className="field">
+                        <label htmlFor="endPoint">Край</label>
+                        <div className="input">
+                            <input type="text" name="endPoint" id="endPoint" placeholder="Kostinbrod"/>
                         </div>
                     </span>
                     <span className="field">
@@ -70,14 +86,14 @@ const Create = () => {
                                 <div className="">
                                     <div className="input">
                                         <input
-                                            type="text" name="departure_time" id="departure_time" placeholder="8:45"
+                                            type="time" name="departure_time" id="departure_time" placeholder="8:45"
                                                value={x.departure_time} onChange={e => handleInputChange(e, i)}/>
                                   </div>
                                     {inputList.length !== 1 && <button
                                         className="button submit"
                                         onClick={() => handleRemoveClick(i)}>Премахни</button>}
                                     {inputList.length - 1 === i &&
-                                        <button className="button submit" type="time" name="departure_time" id="departure_time"
+                                        <button className="button submit" type="text" name="departure_time" id="departure_time"
                                                 onClick={handleAddClick}>Добави</button>}
                                 </div>
                             );
