@@ -1,15 +1,17 @@
 import { Link} from 'react-router-dom';
 import {Button,Collapse,Table} from "react-bootstrap";
-import React,{ useState } from "react";
-
-
+import React, {useState} from "react";
+import useScheduleTimeState from '../../../hooks/useScheduleTimeState';
 
 const ScheduleCard = ({
     schedule
 
-
 }) => {
     const [open, setOpen] = useState(false);
+    const [scheduleTime, setScheduleTime] = useScheduleTimeState([])
+
+
+
     return (
         <>
             <Button
@@ -29,24 +31,38 @@ const ScheduleCard = ({
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>
-                                {schedule.place}</td>
 
-                            <td  id="scheduleTime" className="scheduleTime">
-                                {schedule.departure_time.join('\n')}
-                            </td>
+                       {scheduleTime.map((s,index) => {
 
-                        </tr>
+                           if (schedule.id === s.scheduleId) {
+                               return <tr key={index}>
+                                   <td>
+                                       {s.place}
+                                   </td>
+                                   <td id="scheduleTime" className="scheduleTime">
+                                       {s.departure_time.join('\n')}
+                                   </td>
+                                   <td>
+                                       <Link className="button" to={`/edit/${s.id}`}>Редактирай</Link>
+                                   </td>
+                               </tr>;
+                           }
+
+
+                       })}
+
                         </tbody>
                     </Table>
-                    <Link className="button" to={`/edit/${schedule.id}`}>Редактирай</Link>
+                    <Link className="button" to={`/scheduleTime/${schedule.id}`}>Добави Разписание</Link>
+
 
 
                 </div>
             </Collapse>
         </>
+
     );
+
 }
 
 export default ScheduleCard;

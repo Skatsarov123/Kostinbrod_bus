@@ -13,13 +13,13 @@ import Dashboard from "./components/Dashboard";
 import MyProfile from "./components/MyProfile";
 import Logout from "./components/Logout";
 import GuardedRoute from './components/Common/GuardedRoute';
+import ScheduleTime from "./components/ScheduleTime";
 import Edit from "./components/Edit";
 
 
 function App() {
 
         return (
-
 
             <ErrorBoundary>
                 <AuthProvider>
@@ -41,7 +41,8 @@ function App() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/logout" element={<Logout />} />
-                        <Route path="/edit/:scheduleId" element={<Edit />} />
+                        <Route path="/ScheduleTime/:scheduleId" element={<ScheduleTime />} />
+                        <Route path="/edit/:scheduleTimeId" element={<Edit />} />
 
                     </Routes>
                 </main>

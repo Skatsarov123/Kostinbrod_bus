@@ -1,9 +1,9 @@
 import * as request from './requester';
 
 
-const baseUrl = 'http://localhost:8000/schedule';
+const baseUrl = 'http://localhost:8000/scheduleTime';
 
-export const getAll = () => request.get(`${baseUrl}/all`);
+export const getAll = () => request.get(`${baseUrl}/allSchedulesTime`);
 
 export const create = async (scheduleData,token) => {
 

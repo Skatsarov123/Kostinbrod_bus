@@ -3,9 +3,11 @@ import React from "react";
 import * as ScheduleService from '../../services/scheduleService'
 import './Dashboard.css';
 import ScheduleList from "../SheduleList";
+import useScheduleTimeState from "../../hooks/useScheduleTimeState";
 
 
 const Dashboard = () => {
+
     const [schedules, setSchedules] = useState([]);
     useEffect(() => {
         ScheduleService.getAll()

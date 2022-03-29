@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
-import * as scheduleService from '../services/scheduleService';
+
+import * as scheduleTimeService from "../services/scheduleTimeService";
 
 const useScheduleState = (scheduleId) => {
     const [schedule, setSchedule] =  useState({});
@@ -14,7 +15,7 @@ const useScheduleState = (scheduleId) => {
 
     useEffect (() => {
 
-        scheduleService.getOne(scheduleId, controller.signal)
+        scheduleTimeService.getOne(scheduleId, controller.signal)
             .then(scheduleResult => {
                 setSchedule(scheduleResult);
                 setStartTime(scheduleResult.departure_time)

@@ -3,13 +3,13 @@
 namespace App\Controller;
 
 use App\Repository\ScheduleRepository;
-use Doctrine\Bundle\DoctrineBundle\Command\DropDatabaseDoctrineCommand;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
+
 
 #[Route('/schedule')]
 class ScheduleController extends AbstractController
@@ -30,12 +30,7 @@ class ScheduleController extends AbstractController
         foreach($data as $item) {
             $arrayCollection[] = array(
                 'id' => $item->getId(),
-                'startPoint' =>$item->getStartPoint(),
-                'endPoint' =>$item->getendPoint(),
                 'name'=>$item->getName(),
-                'departure_time'=>$item->getDepartureTime(),
-                'place' =>$item->getPlace(),
-
             );
         }
         return new JsonResponse($arrayCollection);
@@ -45,7 +40,7 @@ class ScheduleController extends AbstractController
      * @throws \Doctrine\ORM\ORMException
      * @throws \Exception
      */
-    #[Route('/create', name: 'market_create', methods: ['POST'])]
+    #[Route('/create', name: 'schedule_create', methods: ['POST'])]
     public function new(Request $request): JsonResponse
     {
         $apiToken = $request->headers->get('Authorization');
@@ -73,11 +68,8 @@ class ScheduleController extends AbstractController
 
         $schedule = [
             'id' => $item->getId(),
-            'startPoint' =>$item->getStartPoint(),
-            'endPoint' =>$item->getEndPoint(),
             'name'=>$item->getName(),
-            'departure_time'=>$item->getDepartureTime(),
-            'place' =>$item->getPlace(),
+
         ];
 
         return new JsonResponse($schedule, Response::HTTP_OK);
@@ -91,13 +83,7 @@ class ScheduleController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $schedule = $this->scheduleRepository->findOneBy(['id'=>$request->get('id')]);
 
-
         empty($data['name']) ? true : $schedule->setName($data['name']);
-        empty($data['startPoint']) ? true : $schedule->setStartPoint($data['startPoint']);
-        empty($data['endPoint']) ? true : $schedule->setEndPoint($data['endPoint']);
-        empty($data['departure_time']) ? true : $schedule->setDepartureTime($data['departure_time']);
-        empty($data['place']) ? true : $schedule->setPlace($data['place']);
-
 
         $updatedSchedule = $this->scheduleRepository->update($schedule);
 

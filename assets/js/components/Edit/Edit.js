@@ -1,33 +1,27 @@
 import React, {useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import * as scheduleService from '../../services/scheduleService';
 import useScheduleState from '../../hooks/useScheduleState';
 import {useAuthContext} from "../../contexts/AuthContext";
+import * as scheduleTimeService from "../../services/scheduleTimeService";
 
 
 
 const Edit = () => {
     const { user } = useAuthContext();
     const navigate = useNavigate();
-    const { scheduleId } = useParams()
-    const [schedule,startTime,setStartTime] = useScheduleState(scheduleId);
-
+    const { scheduleTimeId } = useParams()
+    const [schedule,startTime,setStartTime] = useScheduleState(scheduleTimeId);
 
 
     const scheduleEditSubmitHandler = (e) => {
         e.preventDefault();
         let formData = new FormData(e.currentTarget);
 
-        let name = formData.get('name');
-        let startPoint = formData.get('startPoint');
-        let endPoint = formData.get('endPoint');
+
         let departure_time = formData.getAll('departure_time');
         let place = formData.get('place');
 
-        scheduleService.create({
-            name,
-            startPoint,
-            endPoint,
+        scheduleTimeService.update(scheduleTimeId,user.token,{
             departure_time,
             place,
 
@@ -52,7 +46,7 @@ const Edit = () => {
         list.splice(index, 1);
         setStartTime(list);
     };
-    // handle click event of the Add button
+    // handle click event of the ScheduleTime button
     const handleAddClick = () => {
         setStartTime([...startTime, {startTime }]);
     };
@@ -61,24 +55,7 @@ const Edit = () => {
             <form id="edit-form"  method="POST" onSubmit={scheduleEditSubmitHandler}>
                 <fieldset className='edit'>
                     <h3>Редактирай разписание</h3>
-                    <span className="field">
-                        <label htmlFor="name">Име</label>
-                        <div className="input">
-                            <input  type="name" name="name" id="name" defaultValue={schedule.name}/>
-                        </div>
-                    </span>
-                    <span className="field">
-                        <label htmlFor="name">Име</label>
-                        <div className="input">
-                            <input  type="text" name="startPoint" id="startPoint" defaultValue={schedule.startPoint}/>
-                        </div>
-                    </span>
-                    <span className="field">
-                        <label htmlFor="name">Име</label>
-                        <div className="input">
-                            <input  type="text" name="endPoint" id="endPoint" defaultValue={schedule.endPoint}/>
-                        </div>
-                    </span>
+
                     <span className="field">
                         <label htmlFor="name">Час на тръгване</label>
                         { startTime.map((x, i) => {
