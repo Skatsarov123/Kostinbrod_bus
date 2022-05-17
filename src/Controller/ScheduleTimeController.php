@@ -35,7 +35,8 @@ class ScheduleTimeController extends AbstractController
                 'id' => $item->getId(),
                 'departure_time'=>$item->getDepartureTime(),
                 'place' =>$item->getPlace(),
-                'scheduleId' => $item->getScheduleId()
+                'scheduleId' => $item->getScheduleId(),
+                'isHolliday' =>$item->getIsHoliday()
 
             );
         }
@@ -54,11 +55,10 @@ class ScheduleTimeController extends AbstractController
         if (null === $apiToken) {
             // The token header was empty, authentication fails with HTTP Status
             // Code 401 "Unauthorized"
-            return new JsonResponse('No API token provided',403);
+            return new JsonResponse('No API token provided',401);
         }else {
 
             $jsonData = json_decode($request->getContent());
-
             $scheduleTime = $this->scheduleTimeRepository->create($jsonData);
 
             return new JsonResponse($scheduleTime, Response::HTTP_OK);
@@ -76,6 +76,7 @@ class ScheduleTimeController extends AbstractController
         $arrayCollection = [
             'place' => $data->getPlace(),
             'departure_time'=>$data->getDepartureTime(),
+            'isHolliday' =>$data->getIsHoliday()
 
         ];
 
@@ -95,7 +96,7 @@ class ScheduleTimeController extends AbstractController
         if (null === $apiToken) {
             // The token header was empty, authentication fails with HTTP Status
             // Code 401 "Unauthorized"
-            return new JsonResponse('No API token provided',403);
+            return new JsonResponse('No API token provided',401);
         }else {
             $data = json_decode($request->getContent(), true);
 
@@ -103,6 +104,7 @@ class ScheduleTimeController extends AbstractController
 
             empty($data['departure_time']) ? true : $scheduleTime->setDepartureTime($data['departure_time']);
             empty($data['place']) ? true : $scheduleTime->setPlace($data['place']);
+            empty($data['isHolliday']) ? true : $scheduleTime->setIsHoliday($data['isHolliday']);
 
 
             $updatedSchedule = $this->scheduleTimeRepository->update($scheduleTime);

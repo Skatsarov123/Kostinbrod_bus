@@ -3,7 +3,7 @@ import * as request from './requester';
 
 const baseUrl = 'http://localhost:8000/schedule';
 
-export const getAll = () => request.get(`${baseUrl}/all`);
+export const getAll = () => request.get(`${baseUrl}/allSchedules`);
 
 export const create = async (scheduleData,token) => {
 

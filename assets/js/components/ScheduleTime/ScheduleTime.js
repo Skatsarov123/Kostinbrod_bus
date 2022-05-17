@@ -5,12 +5,11 @@ import { useAuthContext } from '../../contexts/AuthContext';
 import '../../../css/forms.css'
 
 
-
-
 const ScheduleTime = () => {
     const { scheduleId } = useParams()
     const { user } = useAuthContext();
     const navigate = useNavigate();
+    const [isChecked, setIsChecked] = useState(false);
 
     const onScheduleCreate = (e) => {
         e.preventDefault();
@@ -18,16 +17,24 @@ const ScheduleTime = () => {
 
         let departure_time = formData.getAll('departure_time');
         let place = formData.get('place');
+         let isHoliday =isChecked
+
 
         scheduleTimeService.create({
             departure_time,
             place,
-            scheduleId
+            scheduleId,
+            isHoliday,
 
         }, user.token)
             .then(result => {
                 navigate('/');
             })
+    }
+
+
+    const handleOnChange = (e)=>{
+        setIsChecked(e.target.checked)
     }
     const [inputList, setInputList] = useState([{  departure_time: []}]);
     // handle input change
@@ -53,12 +60,11 @@ const ScheduleTime = () => {
                     <form id="create-form" onSubmit={onScheduleCreate} method="POST">
                         <fieldset className='add'>
                             <h3>Добави разписание</h3>
-
                             <span className="field">
                                 <label htmlFor="name">Час на тръгване</label>
                                 {inputList.map((x, i) => {
                                     return (
-                                        <div className="">
+                                        <div className="" key={i}>
                                             <div className="input">
                                                 <input
                                                     type="time" name="departure_time" id="departure_time" placeholder="8:45"
@@ -79,6 +85,12 @@ const ScheduleTime = () => {
                                 <div className="input">
                                     <input type="place" name="place" id="place" placeholder="Sofia"/>
                                 </div>
+                            </span>
+                            <span>
+                                <label>
+                                    <input type="checkbox"  checked={isChecked} onChange={handleOnChange}/>
+                                    <span>Празнично</span>
+                                 </label>
                             </span>
                             <input className="button submit" type="submit" value="Добави"/>
                         </fieldset>

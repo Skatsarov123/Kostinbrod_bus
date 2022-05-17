@@ -16,7 +16,7 @@ const ScheduleList = ({
                         { schedules.map(x => <ScheduleCard key={x.id} schedule={x} />)}
 
                     </ul>
-                ) 
+                )
                 : <p className="no-schedule">No schedule in database!</p>
             }
         </>

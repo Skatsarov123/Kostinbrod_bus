@@ -31,6 +31,7 @@ class ScheduleTimeRepository extends ServiceEntityRepository
         $scheduleTime->setDepartureTime($data->departure_time);
         $scheduleTime->setPlace($data->place);
         $scheduleTime->setScheduleId($data->scheduleId);
+        $scheduleTime->setIsHoliday($data->isHoliday);
 
         $this->_em->persist($scheduleTime);
         $this->_em->flush();

@@ -1,23 +1,16 @@
-import { useState, useEffect } from 'react';
+
 import React from "react";
-import * as ScheduleService from '../../services/scheduleService'
+
 import './Dashboard.css';
 import ScheduleList from "../SheduleList";
-import useScheduleTimeState from "../../hooks/useScheduleTimeState";
+import useInitialState from "../../hooks/useInitialState";
+
 
 
 const Dashboard = () => {
 
-    const [schedules, setSchedules] = useState([]);
-    useEffect(() => {
-        ScheduleService.getAll()
-            .then(result => {
-                setSchedules(result);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }, []);
+    const [schedules, setSchedules] = useInitialState();
+
 
     return (
         <section id="dashboard-page" className="dashboard">
@@ -25,8 +18,9 @@ const Dashboard = () => {
             <section>
                 <ScheduleList schedules={schedules} />
             </section>
+
         </section>
-        
+
     );
 }
 

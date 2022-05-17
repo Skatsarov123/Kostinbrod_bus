@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from 'react';
-
 import * as scheduleTimeService from "../services/scheduleTimeService";
 
 const useScheduleState = (scheduleId) => {

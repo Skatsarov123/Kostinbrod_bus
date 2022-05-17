@@ -22,6 +22,11 @@ class Schedule
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $stopslocation = [];
+
 
 
     public function getId(): ?int
@@ -37,6 +42,18 @@ class Schedule
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getStopslocation()
+    {
+        return $this->stopslocation;
+    }
+
+    public function setStopslocation(array $stopslocation): self
+    {
+        $this->stopslocation = $stopslocation;
 
         return $this;
     }

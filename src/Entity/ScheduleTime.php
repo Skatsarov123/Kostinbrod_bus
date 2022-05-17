@@ -33,6 +33,13 @@ class ScheduleTime
      * @ORM\Column(type="integer")
      */
     private $scheduleId;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_holiday;
+
+
     /**
      * @return mixed
      */
@@ -95,5 +102,19 @@ class ScheduleTime
     {
         $this->scheduleId = $scheduleId;
     }
+
+    public function getIsHoliday(): ?bool
+    {
+        return $this->is_holiday;
+    }
+
+    public function setIsHoliday(bool $is_holiday): self
+    {
+        $this->is_holiday = $is_holiday;
+
+        return $this;
+    }
+
+
 
 }

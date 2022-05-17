@@ -15,6 +15,7 @@ import Logout from "./components/Logout";
 import GuardedRoute from './components/Common/GuardedRoute';
 import ScheduleTime from "./components/ScheduleTime";
 import Edit from "./components/Edit";
+import StopCreate from "./components/Stops";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                         <Route element={<GuardedRoute />}>
                             <Route path="/create" element={<Create />} />
                             <Route path="/my-profile" element={<MyProfile/>} />
+                            <Route path="/stop" element={<StopCreate/>} />
                         </Route>
 
                         <Route path="/login" element={<Login />} />

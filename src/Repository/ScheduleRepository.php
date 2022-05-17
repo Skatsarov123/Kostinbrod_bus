@@ -29,6 +29,7 @@ class ScheduleRepository extends ServiceEntityRepository
     {
         $schedule = new Schedule();
         $schedule->setName($data->name);
+        $schedule->setStopslocation($data->stops);
 
 
 
