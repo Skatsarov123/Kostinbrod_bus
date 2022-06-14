@@ -46,4 +46,13 @@ class ScheduleRepository extends ServiceEntityRepository
 
         return $schedule;
     }
+
+    public function deleteSchedule($schedule):Schedule
+    {
+
+        $this->_em->remove($schedule);
+        $this->_em->flush();
+
+        return $schedule;
+    }
 }

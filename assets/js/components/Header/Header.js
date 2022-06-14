@@ -18,7 +18,7 @@ const Header = () => {
     );
     let userNavigation = (
         <Nav>
-            <Nav.Link as={Link} to="/create">Администрация</Nav.Link>
+            <Nav.Link as={Link} to="/administration">Администрация</Nav.Link>
             <Nav.Link as={Link} to="/schedule">Разписания</Nav.Link>
             <Nav.Link as={Link} to="/news">Новини</Nav.Link>
             <Nav.Link as={Link} to="/contacts">Контакти</Nav.Link>

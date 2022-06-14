@@ -40,45 +40,31 @@ export const update = async  (stopId,token,stopData) => {
 };
 
 
-export const getOne =  (scheduleStopsIds, signal) => {
+export const getBy =  (scheduleStopsIds, signal) => {
 
-    return fetch(`${baseUrl}/getOne/${scheduleStopsIds}`, { signal })
+    return fetch(`${baseUrl}/getBy/${scheduleStopsIds}`, { signal })
 
         .then(res => res.json())
 
 
 };
 
-export const destroy = (stopId, token) => {
-    return fetch(`${baseUrl}/stop/${stopId}`, {
-        method: 'DELETE',
-        headers: {
-            'X-Authorization': token
-        }
-    }).then(res => res.json());
+export const getOne =   (stopId, signal) => {
+
+    return fetch(`${baseUrl}/getOne/${stopId}`, { signal })
+
+        .then(res => res.json())
 
 };
 
+export const destroy = (stopId, token) => {
+    return fetch(`${baseUrl}/delete/${stopId}`, {
+        method: 'DELETE',
+        headers: {
+            'content-type': 'application/json',
+            'Authorization': token
+        }
+    }).then(res => res.json());
+};
 
-export const getByIds = async (scheduleStopsIds=[]) => {
-    //put all promises in an Array so we can let them run and be awaited
-    //await is bad practise in loops and usually does not work
-    let requests = [];
-    let responses = [];
 
-    for (let id in scheduleStopsIds)
-        requests.push(fetch(`${baseUrl}/getOne/${scheduleStopsIds}`, {
-            method: 'POST',
-            body: JSON.stringify({ id }),
-            headers: { 'Content-Type': 'application/json; charset=utf-8' },
-        })
-            //Add response to array
-            .then(response => responses.push(response))
-            .catch(err => console.log(err)));
-
-    //Await all requests
-    await Promise.all(requests);
-
-    //return all responses
-    return responses;
-}

@@ -1,8 +1,10 @@
-import React from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import React, {useState} from 'react';
+import {useNavigate, useParams, Link} from 'react-router-dom';
 import useScheduleState from '../../hooks/useScheduleState';
 import {useAuthContext} from "../../contexts/AuthContext";
 import * as scheduleTimeService from "../../services/scheduleTimeService";
+
+
 
 
 
@@ -10,6 +12,7 @@ const Edit = () => {
     const { user } = useAuthContext();
     const navigate = useNavigate();
     const { scheduleTimeId } = useParams()
+    const [open, setOpen] = useState(false);
     const [schedule,startTime,setStartTime] = useScheduleState(scheduleTimeId);
 
 
@@ -50,7 +53,10 @@ const Edit = () => {
     const handleAddClick = () => {
         setStartTime([...startTime, {startTime }]);
     };
+
+    const handleClose = () => setOpen(false);
     return (
+
         <section id="create-page" className="create">
             <form id="edit-form"  method="POST" onSubmit={scheduleEditSubmitHandler}>
                 <fieldset className='edit'>
@@ -82,6 +88,9 @@ const Edit = () => {
                         </div>
                     </span>
                     <input className="button submit" type="submit" value="Запази"/>
+                    <Link to="/administration"  style={{ textDecoration: 'none' }}>
+                        <input className="button cancel"  value="Откажи"/>
+                    </Link>
                 </fieldset>
             </form>
 

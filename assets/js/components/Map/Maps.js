@@ -30,6 +30,7 @@ function Maps(schedule) {
     };
 
             return (
+
                 <MapContainer
                     className="map"
                     center={position}
@@ -38,6 +39,7 @@ function Maps(schedule) {
                     style={{height: 310, width: "100%"}}
 
                 >
+
                     <ResizeMap/>
                     <TileLayer
                         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -52,7 +54,9 @@ function Maps(schedule) {
                         )}
 
                 </MapContainer>
+
             );
+
 
 }
 

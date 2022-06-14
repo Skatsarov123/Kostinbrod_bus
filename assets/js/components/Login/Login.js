@@ -20,7 +20,7 @@ const Login = () => {
             .then((authData) => {
                 login(authData);
                 addNotification('You logged in successfully', types.success);
-                navigate('/dashboard');
+                navigate('/');
 
             })
             .catch(err => {

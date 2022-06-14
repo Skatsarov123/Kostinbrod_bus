@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useNavigate, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import * as scheduleTimeService from '../../services/scheduleTimeService';
 import { useAuthContext } from '../../contexts/AuthContext';
 import '../../../css/forms.css'
@@ -93,6 +93,9 @@ const ScheduleTime = () => {
                                  </label>
                             </span>
                             <input className="button submit" type="submit" value="Добави"/>
+                            <Link to="/administration"  style={{ textDecoration: 'none' }}>
+                                <input className="button cancel"  value="Откажи"/>
+                            </Link>
                         </fieldset>
                     </form>
         </section>

@@ -48,11 +48,11 @@ export const getOne = (scheduleId, signal) => {
 
 };
 
-export const destroy = (scheduleId, token) => {
-    return fetch(`${baseUrl}/schedule/${scheduleId}`, {
-        method: 'DELETE',
-        headers: {
-            'X-Authorization': token
-        }
-    }).then(res => res.json());
-};
+// export const destroy = (scheduleId, token) => {
+//     return fetch(`${baseUrl}/schedule/${scheduleId}`, {
+//         method: 'DELETE',
+//         headers: {
+//             'X-Authorization': token
+//         }
+//     }).then(res => res.json());
+// };

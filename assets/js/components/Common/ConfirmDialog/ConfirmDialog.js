@@ -1,5 +1,5 @@
 import { Modal, Button } from 'react-bootstrap';
-
+import React from 'react';
 const ConfirmDialog = ({
     show,
     onClose,
@@ -8,16 +8,16 @@ const ConfirmDialog = ({
     return (
         <Modal show={show} onHide={onClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Modal title</Modal.Title>
+                <Modal.Title></Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
-                <p>Modal body text goes here.</p>
+                <p>Сигурни ли сте, че искате да изтриете.</p>
             </Modal.Body>
 
             <Modal.Footer>
-                <Button variant="secondary" onClick={onClose}>Close</Button>
-                <Button variant="primary" onClick={onSave}>Save changes</Button>
+                <Button variant="secondary" onClick={onClose}>Не</Button>
+                <Button variant="primary" onClick={onSave}>Да</Button>
             </Modal.Footer>
         </Modal>
     );

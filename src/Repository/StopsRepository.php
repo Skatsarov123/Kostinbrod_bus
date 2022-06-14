@@ -36,9 +36,18 @@ class StopsRepository extends ServiceEntityRepository
         return $stops;
     }
 
-    public function update($stops): ScheduleTime
+    public function update($stops): Stops
     {
         $this->_em->persist($stops);
+        $this->_em->flush();
+
+        return $stops;
+    }
+
+    public function deleteStop($stops):Stops
+    {
+
+        $this->_em->remove($stops);
         $this->_em->flush();
 
         return $stops;

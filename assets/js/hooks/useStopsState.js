@@ -12,10 +12,10 @@ const useStopsState = (scheduleStopsIds) => {
     }, [])
 
     useEffect (() => {
-        stopService.getOne(scheduleStopsIds)
+        stopService.getBy(scheduleStopsIds)
             .then(scheduleStopsResult => {
                 setScheduleStops(scheduleStopsResult);
-
+              
             })
 
             .catch(err => {

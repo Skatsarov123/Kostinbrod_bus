@@ -4,12 +4,13 @@ import React, {useState} from "react";
 import useScheduleTimeState from '../../../hooks/useScheduleTimeState';
 import Switch from '@mui/material/Switch';
 import Maps from "../../Map/Maps";
+import { useAuthContext} from "../../../contexts/AuthContext";
 
 const ScheduleCard = ({
     schedule
 
 }) => {
-
+    const {user} = useAuthContext();
     const [open, setOpen] = useState(false);
     const [scheduleTime, setScheduleTime] = useScheduleTimeState([])
     const [toggle, setToggle] = useState(false);
@@ -32,6 +33,7 @@ const ScheduleCard = ({
 
                 <div id="example-collapse-text">
                     <Table className="schedule-table">
+
                         <thead>
                         <span>Делнично</span>
                         <Switch
@@ -62,7 +64,10 @@ const ScheduleCard = ({
                                             {s.departure_time.join('\n')}
                                         </td>
                                         <td>
-                                            <Link className="button" to={`/edit/${s.id}`}>Редактирай</Link>
+                                            {user.username
+                                                ? <Link className="button" to={`/edit/${s.id}`}>Редактирай</Link>
+                                                : <></>
+                                            }
                                         </td>
                                     </tr>;
                                 }
@@ -70,12 +75,16 @@ const ScheduleCard = ({
                        })}
                         </tbody>
                     </Table>
-                    <Link className="button" to={`/scheduleTime/${schedule.id}`}>Добави Разписание</Link>
+                    {user.username
+                        ?< Link className="button" to={`/scheduleTime/${schedule.id}`}>Добави Разписание</Link>
+                        : <></>
+                    }
                 </div>
             </Collapse>
         </>
 
     );
+
 
 }
 

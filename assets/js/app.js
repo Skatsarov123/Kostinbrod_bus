@@ -16,6 +16,13 @@ import GuardedRoute from './components/Common/GuardedRoute';
 import ScheduleTime from "./components/ScheduleTime";
 import Edit from "./components/Edit";
 import StopCreate from "./components/Stops";
+import AllStops from "./components/Stops/Stops";
+import EditStop from "./components/Stops/Edit/EditStop";
+import AllSchedules from "./components/Schedules/Schedules";
+import EditSchedule from "./components/Schedules/Edit/EditSchedule";
+
+
+
 
 
 function App() {
@@ -35,16 +42,25 @@ function App() {
 
 
                         <Route element={<GuardedRoute />}>
-                            <Route path="/create" element={<Create />} />
+                            <Route path="/administration" element={<Create />} />
                             <Route path="/my-profile" element={<MyProfile/>} />
                             <Route path="/stop" element={<StopCreate/>} />
+                            <Route path="/ScheduleTime/:scheduleId" element={<ScheduleTime />} />
+                            <Route path="/edit/:scheduleTimeId" element={<Edit />} />
+                            <Route path="/register" element={<Register />} />
+                            <Route path="/stops" element={<AllStops />} />
+                            <Route path="/schedules" element={<AllSchedules />} />
+                            <Route path="/stops/editStop/:stopId" element={<EditStop />} />
+                            <Route path="/schedule/editSchedule/:scheduleId" element={<EditSchedule />} />
+
+
+
                         </Route>
 
                         <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
+
                         <Route path="/logout" element={<Logout />} />
-                        <Route path="/ScheduleTime/:scheduleId" element={<ScheduleTime />} />
-                        <Route path="/edit/:scheduleTimeId" element={<Edit />} />
+
 
                     </Routes>
                 </main>

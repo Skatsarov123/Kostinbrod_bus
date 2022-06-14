@@ -65,7 +65,7 @@ class ScheduleController extends AbstractController
     public function getOne($id): JsonResponse
     {
 
-        $item = $this->scheduleRepository-> findOneBy(['id'=>$id]);
+        $item = $this->scheduleRepository-> find($id);
 
 
         $schedule = [
@@ -77,12 +77,11 @@ class ScheduleController extends AbstractController
         return new JsonResponse($schedule, Response::HTTP_OK);
     }
 
-    /**
-     * @Route("/update/{id}", name="update_schedule", methods={"PUT"})
-     */
+    #[Route('/update/{id}', name: 'schedule_update')]
     public function edit( Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
+
         $schedule = $this->scheduleRepository->findOneBy(['id'=>$request->get('id')]);
 
         empty($data['name']) ? true : $schedule->setName($data['name']);
@@ -91,6 +90,26 @@ class ScheduleController extends AbstractController
 
         return new JsonResponse($updatedSchedule, Response::HTTP_OK);
        
+
+    }
+
+    #[Route('/delete/{id}', name: 'schedule_delete',methods:['DELETE'])]
+    public function remove(Request $request): JsonResponse
+    {
+
+        $apiToken = $request->headers->get('Authorization');
+
+        if (null === $apiToken) {
+
+            return new JsonResponse('No API token provided',403);
+        }else {
+
+            $schedule = $this->scheduleRepository->findOneBy(['id' => $request->get('id')]);
+
+            $this->scheduleRepository->deleteSchedule($schedule);
+
+            return new JsonResponse( 'Success',204);
+        }
 
     }
 }

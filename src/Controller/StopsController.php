@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Repository\StopsRepository;
+use JetBrains\PhpStorm\NoReturn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,6 +36,7 @@ class StopsController extends AbstractController
                 'longitude'=>$item->getLongitude()
             );
         }
+
         return new JsonResponse($arrayCollection);
     }
     /**
@@ -63,7 +65,25 @@ class StopsController extends AbstractController
     }
 
     #[Route('/getOne/{id}', name: 'stop_getOne')]
-    public function getOne(  $id): JsonResponse
+    public function getOne(int $id): JsonResponse
+    {
+
+        $data = $this->stopsRepository->find($id);
+
+
+        $arrayCollection = [
+            'name' => $data->getName(),
+            'latitude'=>$data->getLatitude(),
+            'longitude' =>$data->getLongitude()
+
+        ];
+
+        return new JsonResponse($arrayCollection, Response::HTTP_OK);
+
+    }
+
+    #[Route('/getBy/{id}', name: 'stop_getBy')]
+    public function getBy( $id): JsonResponse
     {
 
             $arr = explode(",", $id);
@@ -87,22 +107,40 @@ class StopsController extends AbstractController
 
     }
 
-    /**
-     * @Route("/update/{id}", name="update_schedule", methods={"PUT"})
-     */
+    #[Route('/update/{id}', name: 'stop_update')]
     public function edit( Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-        $schedule = $this->stopsRepository->findOneBy(['id'=>$request->get('id')]);
+        $stop = $this->stopsRepository->findOneBy(['id'=>$request->get('id')]);
 
-        empty($data['name']) ? true : $schedule->setName($data['name']);
-        empty($data['latitude']) ? true : $schedule->setLatitude($data['latitude']);
-        empty($data['longitude']) ? true : $schedule->setLongitude($data['longitude']);
+        empty($data['name']) ? true : $stop->setName($data['name']);
+        empty($data['latitude']) ? true : $stop->setLatitude($data['latitude']);
+        empty($data['longitude']) ? true : $stop->setLongitude($data['longitude']);
 
-        $updatedSchedule = $this->stopsRepository->update($schedule);
+        $updatedStop = $this->stopsRepository->update($stop);
 
-        return new JsonResponse($updatedSchedule, Response::HTTP_OK);
+        return new JsonResponse($updatedStop, Response::HTTP_OK);
 
+
+    }
+
+    #[Route('/delete/{id}', name: 'stop_delete',methods:['DELETE'])]
+    public function remove(Request $request): JsonResponse
+    {
+
+        $apiToken = $request->headers->get('Authorization');
+
+        if (null === $apiToken) {
+
+            return new JsonResponse('No API token provided',403);
+        }else {
+
+            $stop = $this->stopsRepository->findOneBy(['id' => $request->get('id')]);
+
+            $this->stopsRepository->deleteStop($stop);
+
+            return new JsonResponse( 'Success',204);
+        }
 
     }
 }

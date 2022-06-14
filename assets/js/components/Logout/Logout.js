@@ -11,7 +11,7 @@ const Logout = () => {
         authService.logout(user.token)
             .then(() => {
                 logout();
-                navigate('/dashboard');
+                navigate('/');
             })
     }, [])
 
