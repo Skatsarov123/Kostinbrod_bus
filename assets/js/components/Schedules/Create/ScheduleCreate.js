@@ -1,34 +1,45 @@
 import {useAuthContext} from "../../../contexts/AuthContext";
 import {Link, useNavigate} from "react-router-dom";
-import React, {useState} from "react";
-import useStopState from "../../../hooks/useStopsState";
+import React, {useEffect, useState} from "react";
 import * as scheduleService from "../../../services/scheduleService";
-
-import {Collapse, DropdownButton,Button} from "react-bootstrap";
-import { Checkbox, FormControlLabel} from "@mui/material";
-import Fab from "@mui/material/Fab";
-import DoneIcon from "@mui/icons-material/Done";
-import CloseIcon from "@mui/icons-material/Close";
-import {grey} from "@mui/material/colors";
+import {Checkbox, FormControlLabel} from "@mui/material";
+import * as stopService from "../../../services/stopService";
 
 const ScheduleCreate = () => {
 
-    const { user } = useAuthContext();
+    const {user} = useAuthContext();
     const navigate = useNavigate();
-    const [open, setOpen] = useState(false);
-    const [busStops,setBusStops] = useStopState()
+    const [busStops, setBusStops] = useState([])
+    const [names,setNames] = useState([])
 
 
+
+
+
+    useEffect(() => {
+        stopService.getAll()
+            .then(result => {
+                setBusStops(result);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }, []);
+
+
+
+    console.log(names)
     const onScheduleCreate = (e) => {
+
         e.preventDefault();
         let formData = new FormData(e.currentTarget);
         let name = formData.get('name');
         let stops = formData.getAll('stops');
-
+        let test = formData.values()
+        console.log(test)
         scheduleService.create({
             name,
-            stops
-
+            stops,
         }, user.token)
             .then(result => {
                 navigate('/schedules');
@@ -36,53 +47,55 @@ const ScheduleCreate = () => {
     }
 
     return (
-        <section id="create-page" className="create">
         <>
-            <Button
-                onClick={() => setOpen(!open)}
-                aria-controls="example-collapse-text"
-                aria-expanded={open}
-            >
-                Добави линия
-            </Button>
+            <h3 className="bg-gradient-to-r from-red-500 text-4xl  flex justify-center content-center text-white w-full py-5 my-5">Добави
+                линия</h3>
+            <div className='flex justify-center place-items-center gap-6 py-5 '>
 
-            <Collapse in={open}>
+                <form onSubmit={onScheduleCreate} method="POST">
+                    <div>
+                        <label
+                            className="flex justify-center content-center mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Име</label>
+                        <input type="text" name="name" id="name"
+                               className=" text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               placeholder="Kostinbrod - Sofia"/>
+                    </div>
+                    <label className=" flex justify-center content-center" htmlFor="name">Спирки</label>
+                    <div id="dropdown-basic-button" title="Спирки">
+                        {busStops.map(element => (
+                            <FormControlLabel
+                                key={element.id}
+                                control={<Checkbox name="stops"/>}
+                                label={element.name}
+                                value={element.id}
+                                onClick={()=>setNames(element.name)}
+                            />
 
-                <form id="create-form" onSubmit={onScheduleCreate} method="POST">
-                    <fieldset className='create'>
-                        <h3>Добави разписание</h3>
-                        <span className="field">
-                        <label htmlFor="name">Име</label>
-                        <div className="input">
-                            <input type="text" name="name" id="name" placeholder="Sofia-Kostinbrod"/>
-                        </div>
-                    </span>
-                        <DropdownButton id="dropdown-basic-button" title="Спирки" >
-                            {busStops.map(element => (
-                                <FormControlLabel
-                                    control={<Checkbox  name="stops" />}
-                                    label={element.name}
-                                />
-                            ))}
-                        </DropdownButton>
-                        <div className="editButton">
-                            <Fab size="small" className="btn-success"onClick={() => setOpen(!open)} color="success" aria-label="add" type = "submit">
-                                <DoneIcon />
-                            </Fab>
+                        ))}
+                    </div>
+                    <div className=" flex justify-center content-center">
+                        <button type="submit">
+                            <svg className="h-10 w-10 text-green-500" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </button>
+                        <Link to="/schedules">
+                            <svg className="h-10 w-10 text-red-500" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                 strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="15" y1="9" x2="9" y2="15"/>
+                                <line x1="9" y1="9" x2="15" y2="15"/>
+                            </svg>
+                        </Link>
+                    </div>
 
-                            <Fab size="small" className="btn-danger" onClick={() => {setOpen(!open);{  formRef.current.reset();}}}  aria-label="cancel"  >
-                                <CloseIcon sx={{ color: grey }}/>
-                            </Fab>
-                        </div>
-                    </fieldset>
 
                 </form>
-
-
-            </Collapse>
+            </div>
         </>
-</section>
-);
+    );
 
 }
 

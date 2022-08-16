@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\ScheduleRepository;
 
+use App\Repository\StopsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,9 +54,8 @@ class ScheduleController extends AbstractController
         }else {
 
             $jsonData = json_decode($request->getContent());
-
+            dd($jsonData);
             $schedule = $this->scheduleRepository->create($jsonData);
-
             return new JsonResponse($schedule, Response::HTTP_OK);
 
         }
@@ -85,6 +85,9 @@ class ScheduleController extends AbstractController
         $schedule = $this->scheduleRepository->findOneBy(['id'=>$request->get('id')]);
 
         empty($data['name']) ? true : $schedule->setName($data['name']);
+        empty($data['stops']) ? true : $schedule->setStopslocation($data['stops']);
+        empty($data['currentStops']) ? true : $schedule->setStopslocation($data['stops']);
+
 
         $updatedSchedule = $this->scheduleRepository->update($schedule);
 

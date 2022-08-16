@@ -13,7 +13,7 @@ Encore
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
-
+    .addStyleEntry('tailwind', './assets/css/tailwind.css')
     /*
      * ENTRY CONFIG
      *
@@ -70,6 +70,11 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
+    .enablePostCssLoader((options) => {
+        options.postcssOptions = {
+            config: './postcss.config.js'
+        };
+    })
 ;
 
 module.exports = Encore.getWebpackConfig();

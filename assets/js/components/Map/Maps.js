@@ -6,8 +6,6 @@ import RoutingMachine from "./RoutingMachine";
 import useStopsState from "../../hooks/useStopsState";
 
 
-
-
 function Maps(schedule) {
     const position = [42.73919,23.29086];
     const scheduleId = schedule.stop_location
@@ -17,7 +15,7 @@ function Maps(schedule) {
 
 
     let  waypoint = stops.map(function(dataPoint){
-        // It might be useful to inspect these values
+
             return [parseFloat(dataPoint.latitude), parseFloat(dataPoint.longitude)];
     });
 
@@ -34,23 +32,19 @@ function Maps(schedule) {
                 <MapContainer
                     className="map"
                     center={position}
-                    minZoom={11}
+                    minZoom={1}
                     zoom={12}
-                    style={{height: 310, width: "100%"}}
 
+
+                    style={{height: 310, width: 1200 }}
                 >
-
                     <ResizeMap/>
                     <TileLayer
                         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-
                     {stops.length > 0 && (
-                        <RoutingMachine
-
-                        zoom={12} ref={rMachine} waypoints={waypoint}
-                        />
+                        <RoutingMachine zoom={12} ref={rMachine} waypoints={waypoint}    />
                         )}
 
                 </MapContainer>

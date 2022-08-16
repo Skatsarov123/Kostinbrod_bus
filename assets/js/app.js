@@ -1,26 +1,25 @@
 import React, {StrictMode} from "react";
 import { Routes, Route, BrowserRouter as Router    } from 'react-router-dom';
 import Header from './components/Header';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactDOM from 'react-dom';
 import Register from './components/Register';
 import Login from "./components/Login";
 import  ErrorBoundary from './components/Common/ErrorBoundary';
 import {AuthProvider} from './contexts/AuthContext';
 import { NotificationProvider } from './contexts/NotificationContext'
-import Create from './components/Create';
+import Administration from './components/Administration';
 import Dashboard from "./components/Dashboard";
-import MyProfile from "./components/MyProfile";
 import Logout from "./components/Logout";
 import GuardedRoute from './components/Common/GuardedRoute';
 import ScheduleTime from "./components/ScheduleTime";
-import Edit from "./components/Edit";
-import StopCreate from "./components/Stops";
+import Edit from "./components/ScheduleTime/Edit";
+import StopCreate from "./components/Stops/Create/Create";
 import AllStops from "./components/Stops/Stops";
 import EditStop from "./components/Stops/Edit/EditStop";
 import AllSchedules from "./components/Schedules/Schedules";
 import EditSchedule from "./components/Schedules/Edit/EditSchedule";
-
+import ScheduleCreate from "./components/Schedules/Create/ScheduleCreate";
+import ScheduleTimePanel from "./components/ScheduleTimePanel/ScheduleTimePanel";
 
 
 
@@ -42,8 +41,7 @@ function App() {
 
 
                         <Route element={<GuardedRoute />}>
-                            <Route path="/administration" element={<Create />} />
-                            <Route path="/my-profile" element={<MyProfile/>} />
+                            <Route path="/administration" element={<Administration />} />
                             <Route path="/stop" element={<StopCreate/>} />
                             <Route path="/ScheduleTime/:scheduleId" element={<ScheduleTime />} />
                             <Route path="/edit/:scheduleTimeId" element={<Edit />} />
@@ -52,6 +50,11 @@ function App() {
                             <Route path="/schedules" element={<AllSchedules />} />
                             <Route path="/stops/editStop/:stopId" element={<EditStop />} />
                             <Route path="/schedule/editSchedule/:scheduleId" element={<EditSchedule />} />
+                            <Route path="/schedules/create" element={<ScheduleCreate />} />
+                            <Route path="/stop/create" element={<StopCreate />} />
+                            <Route path="/schedule-panel" element={<ScheduleTimePanel />} />
+
+
 
 
 

@@ -32,6 +32,7 @@ class ScheduleTimeRepository extends ServiceEntityRepository
         $scheduleTime->setPlace($data->place);
         $scheduleTime->setScheduleId($data->scheduleId);
         $scheduleTime->setIsHoliday($data->isHoliday);
+        $scheduleTime->setScheduleName($data->scheduleName);
 
         $this->_em->persist($scheduleTime);
         $this->_em->flush();
@@ -42,6 +43,14 @@ class ScheduleTimeRepository extends ServiceEntityRepository
     public function update($scheduleTime): ScheduleTime
     {
         $this->_em->persist($scheduleTime);
+        $this->_em->flush();
+
+        return $scheduleTime;
+    }
+    public function deleteSchedule($scheduleTime):ScheduleTime
+    {
+
+        $this->_em->remove($scheduleTime);
         $this->_em->flush();
 
         return $scheduleTime;

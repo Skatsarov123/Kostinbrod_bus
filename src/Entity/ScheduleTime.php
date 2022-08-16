@@ -35,6 +35,11 @@ class ScheduleTime
     private $scheduleId;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $scheduleName;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $is_holiday;
@@ -113,6 +118,22 @@ class ScheduleTime
         $this->is_holiday = $is_holiday;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getScheduleName()
+    {
+        return $this->scheduleName;
+    }
+
+    /**
+     * @param mixed $scheduleName
+     */
+    public function setScheduleName($scheduleName): void
+    {
+        $this->scheduleName = $scheduleName;
     }
 
 

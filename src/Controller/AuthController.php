@@ -44,7 +44,7 @@ class AuthController extends AbstractController
     }
 
 
-    #[Route('/logout', name: 'user.logout')]
+    #[Route('/logout', name: 'user.logout', methods: ['GET'])]
     public function onLogoutSuccess(): void
     {
         throw new \Exception('Ok');

@@ -30,26 +30,27 @@ const Login = () => {
     }
 
     return (
-        <section id="login-page" className="login">
-            <form id="login-form" onSubmit={onLoginHandler} method="POST">
-                <fieldset>
-                    <legend>Login Form</legend>
-                    <p className="field">
-                        <label htmlFor="username">Username</label>
-                        <span className="input">
-                            <input type="text" name="username" id="username" placeholder="Username" />
-                        </span>
-                    </p>
-                    <p className="field">
-                        <label htmlFor="password">Password</label>
-                        <span className="input">
-                            <input type="password" name="password" id="password" placeholder="Password" />
-                        </span>
-                    </p>
-                    <input className="button submit" type="submit" value="Login" />
-                </fieldset>
-            </form>
-        </section>
+        <div className="w-full min-h-screen bg-gray-50 flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
+            <div className="w-full sm:max-w-md p-5 mx-auto">
+
+                <form id="login-form" onSubmit={onLoginHandler} method="POST">
+                    <div className="mb-4">
+                        <label className="block mb-1" >Username</label>
+                        <input id="email" type="text" name="username" className="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block mb-1" >Password</label>
+                        <input id="password" type="password" name="password" className="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" />
+                    </div>
+                    <div className="mt-6 flex items-center justify-between">
+                    </div>
+                    <div className="mt-6">
+                        <button className="w-full inline-flex items-center justify-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold capitalize text-white hover:bg-red-700 active:bg-red-700 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200 disabled:opacity-25 transition">Влез</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     );
 }
 

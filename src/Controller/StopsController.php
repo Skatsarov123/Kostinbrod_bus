@@ -83,14 +83,37 @@ class StopsController extends AbstractController
     }
 
     #[Route('/getBy/{id}', name: 'stop_getBy')]
-    public function getBy( $id): JsonResponse
+    public function getBy($id): JsonResponse
     {
 
             $arr = explode(",", $id);
         for ($x = 0; $x < count($arr); $x++) {
             $test[] = $arr[$x];
         }
+
         $data = $this->stopsRepository-> findBy(array('id' => $test));
+
+
+        $arrayCollection = array();
+        foreach($data as $item) {
+            $arrayCollection[] = array(
+                'id' => $item->getId(),
+                'name'=>$item->getName(),
+                'latitude'=>$item->getLatitude(),
+                'longitude'=>$item->getLongitude()
+            );
+        }
+
+        return new JsonResponse($arrayCollection);
+
+    }
+
+    #[Route('/findCurrent', name: 'find_current')]
+    public function findCurrent(Request $request): JsonResponse
+    {
+
+
+        $data = $this->stopsRepository-> findBy(array('id' => $request->get('stop_location')));
 
 
         $arrayCollection = array();

@@ -13,44 +13,25 @@ import React from "react";
 const createRoutineMachineLayer = (props) => {
 
     const { waypoints } = props;
-
-    const points1 = [
-        [42.741173797992744,  23.28697396123882],
-        [42.80967488362432, 23.21687124840545]
-    ];
-
-
-
-
-
-    // console.log(waypoints)
-
     const instance = L.Routing.control({
-
-
         waypoints:  waypoints,
-            // L.latLng(42.741173797992744, 23.28697396123882),
-            // L.latLng(42.80967488362432, 23.21687124840545),
-
-
-
         lineOptions: {
-            styles: [{ color: "#6FA1EC", weight: 4 }]
+            styles: [{ color: "#6FA1EC", weight: 4,  }]
         },
 
         show: false,
-        addWaypoints: true,
-        routeWhileDragging: true,
+        addWaypoints: false,
+        routeWhileDragging: false,
         draggableWaypoints: false,
         fitSelectedRoutes: true,
         showAlternatives: false,
         extendToWaypoints: true,
         missingRouteTolerance: 10,
 
+
+
+
     })
-
-
-      // console.log(instance)
     return instance;
 };
 

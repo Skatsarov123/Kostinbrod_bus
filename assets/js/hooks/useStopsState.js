@@ -1,9 +1,9 @@
-import {useState, useEffect, useMemo} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import * as stopService from '../services/stopService';
 
 const useStopsState = (scheduleStopsIds) => {
 
-    const [scheduleStops, setScheduleStops] =  useState([]);
+    const [scheduleStops, setScheduleStops] = useState([]);
 
     const controller = useMemo(() => {
         const controller = new AbortController();
@@ -11,13 +11,12 @@ const useStopsState = (scheduleStopsIds) => {
         return controller;
     }, [])
 
-    useEffect (() => {
+    useEffect(() => {
         stopService.getBy(scheduleStopsIds)
             .then(scheduleStopsResult => {
                 setScheduleStops(scheduleStopsResult);
-              
-            })
 
+            })
             .catch(err => {
                 console.log(err);
             })
@@ -25,14 +24,13 @@ const useStopsState = (scheduleStopsIds) => {
         return () => {
             controller.abort();
         }
-    }, [scheduleStopsIds,controller]);
-
-
+    }, [controller]);
 
     return [
         scheduleStops,
         setScheduleStops
     ]
+
 };
 
 export default useStopsState;

@@ -52,7 +52,8 @@ export const register = (username, password,name) => {
 export const logout = (token) => {
     return fetch(`${baseUrl}/logout`, {
         headers: {
-            'X-Authorization': token,
+            'content-type': 'application/json',
+            'Authorization': token
         }
     })
 };

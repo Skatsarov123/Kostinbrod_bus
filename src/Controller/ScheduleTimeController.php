@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Repository\ScheduleRepository;
 use App\Repository\ScheduleTimeRepository;
 
 use Doctrine\ORM\OptimisticLockException;
@@ -17,6 +18,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/scheduleTime')]
 class ScheduleTimeController extends AbstractController
 {
+
+
     public function __construct(
         private ScheduleTimeRepository      $scheduleTimeRepository,
     )
@@ -36,6 +39,7 @@ class ScheduleTimeController extends AbstractController
                 'departure_time'=>$item->getDepartureTime(),
                 'place' =>$item->getPlace(),
                 'scheduleId' => $item->getScheduleId(),
+                'schedule_name' => $item->getScheduleName(),
                 'isHolliday' =>$item->getIsHoliday()
 
             );
@@ -48,7 +52,7 @@ class ScheduleTimeController extends AbstractController
      * @throws Exception
      */
     #[Route('/create', name: 'scheduleTime_create', methods: ['POST'])]
-    public function new(Request $request): JsonResponse
+    public function new( Request $request): JsonResponse
     {
         $apiToken = $request->headers->get('Authorization');
 
@@ -60,7 +64,6 @@ class ScheduleTimeController extends AbstractController
 
             $jsonData = json_decode($request->getContent());
             $scheduleTime = $this->scheduleTimeRepository->create($jsonData);
-
             return new JsonResponse($scheduleTime, Response::HTTP_OK);
 
         }
@@ -110,6 +113,25 @@ class ScheduleTimeController extends AbstractController
             $updatedSchedule = $this->scheduleTimeRepository->update($scheduleTime);
 
             return new JsonResponse($updatedSchedule, Response::HTTP_OK);
+        }
+
+    }
+    #[Route('/delete/{id}', name: 'scheduleTime_delete',methods:['DELETE'])]
+    public function remove(Request $request): JsonResponse
+    {
+
+        $apiToken = $request->headers->get('Authorization');
+
+        if (null === $apiToken) {
+
+            return new JsonResponse('No API token provided',403);
+        }else {
+
+            $schedule = $this->scheduleTimeRepository->findOneBy(['id' => $request->get('id')]);
+
+            $this->scheduleTimeRepository->deleteSchedule($schedule);
+
+            return new JsonResponse( 'Success',204);
         }
 
     }
