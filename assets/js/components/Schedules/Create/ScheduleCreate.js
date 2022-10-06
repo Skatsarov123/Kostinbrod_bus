@@ -10,11 +10,7 @@ const ScheduleCreate = () => {
     const {user} = useAuthContext();
     const navigate = useNavigate();
     const [busStops, setBusStops] = useState([])
-    const [names,setNames] = useState([])
-
-
-
-
+    let stopNames = [];
 
     useEffect(() => {
         stopService.getAll()
@@ -26,26 +22,29 @@ const ScheduleCreate = () => {
             })
     }, []);
 
-
-
-    console.log(names)
     const onScheduleCreate = (e) => {
-
         e.preventDefault();
         let formData = new FormData(e.currentTarget);
         let name = formData.get('name');
         let stops = formData.getAll('stops');
-        let test = formData.values()
-        console.log(test)
+
+
+        stops.map(e => {
+            busStops.map(initialsStops => {
+                if (e == initialsStops.id) {
+                    stopNames.push(initialsStops.name)
+                }
+            })
+        })
         scheduleService.create({
             name,
             stops,
+            stopNames,
         }, user.token)
             .then(result => {
                 navigate('/schedules');
             })
     }
-
     return (
         <>
             <h3 className="bg-gradient-to-r from-red-500 text-4xl  flex justify-center content-center text-white w-full py-5 my-5">Добави
@@ -68,7 +67,6 @@ const ScheduleCreate = () => {
                                 control={<Checkbox name="stops"/>}
                                 label={element.name}
                                 value={element.id}
-                                onClick={()=>setNames(element.name)}
                             />
 
                         ))}
@@ -90,8 +88,6 @@ const ScheduleCreate = () => {
                             </svg>
                         </Link>
                     </div>
-
-
                 </form>
             </div>
         </>

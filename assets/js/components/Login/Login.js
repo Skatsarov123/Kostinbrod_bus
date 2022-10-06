@@ -31,6 +31,7 @@ const Login = () => {
 
     return (
         <div className="w-full min-h-screen bg-gray-50 flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
+            <h3 className="bg-gradient-to-r from-red-500 text-4xl  flex justify-center content-center text-white w-full py-5 my-5">Вход</h3>
             <div className="w-full sm:max-w-md p-5 mx-auto">
 
                 <form id="login-form" onSubmit={onLoginHandler} method="POST">

@@ -8,10 +8,7 @@ import * as scheduleService from "../../services/scheduleService";
 const AllSchedules = () => {
 
     const {user} = useAuthContext();
-
     const [schedules, setSchedules] = useState([]);
-
-
     useEffect(() => {
 
         scheduleService.getAll()
@@ -22,10 +19,6 @@ const AllSchedules = () => {
                 console.log(err);
             })
     }, []);
-
-
-
-
     return (
         <>
             <h3 className="bg-gradient-to-r from-red-500 text-4xl  flex justify-center content-center text-white w-full py-5 my-5">Меню линии
@@ -44,7 +37,6 @@ const AllSchedules = () => {
                         </th>
                         <th scope="col"
                             className=" text-black-900 px-6 py-4 ">
-
                         </th>
                     </tr>
                     </thead>
@@ -55,9 +47,8 @@ const AllSchedules = () => {
                                 className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{x.name}
                             </th>
                             <th scope="row"
-                                className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{x.stop_location}
+                                className="py-4 px-6 font-medium text-gray-900 whitespace-pre-wrap dark:text-white">{x.stops_names.join('\n')}
                             </th>
-
                             <th className=" px-6">
                                 {user.username
                                     ? <Link to={`/schedule/editSchedule/${x.id}`} style={{paddingRight: '5px'}}>
@@ -91,15 +82,11 @@ const AllSchedules = () => {
                                     </svg>
                                 </Link>
                                 </th>
-
-
                         </tr>;
                     })}
                     </tbody>
                 </table>
             </div>
-
-
             <div className='flex justify-center place-items-center gap-6 py-5 '>
 
                 <Link to="/schedules/create" >

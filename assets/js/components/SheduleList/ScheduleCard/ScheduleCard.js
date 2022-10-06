@@ -4,7 +4,8 @@ import useScheduleTimeState from '../../../hooks/useScheduleTimeState';
 import {useAuthContext} from "../../../contexts/AuthContext";
 import Maps from "../../Map/Maps";
 import {Switch} from '@headlessui/react'
-
+import "leaflet-routing-machine/dist/leaflet-routing-machine.css"
+import 'leaflet/dist/leaflet.css';
 
 
 const ScheduleCard = ({schedule}) => {

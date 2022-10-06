@@ -16,7 +16,7 @@ const Edit = () => {
     const { scheduleTimeId } = useParams()
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const [schedule,startTime,setStartTime] = useScheduleState(scheduleTimeId);
-
+    const [isChecked, setIsChecked] = useState(false);
 
     const scheduleEditSubmitHandler = (e) => {
         e.preventDefault();
@@ -25,10 +25,12 @@ const Edit = () => {
 
         let departure_time = formData.getAll('departure_time');
         let place = formData.get('place');
+        let isHoliday =isChecked;
 
         scheduleTimeService.update(scheduleTimeId,user.token,{
             departure_time,
             place,
+            isHoliday,
 
         }, user.token)
             .then(result => {
@@ -47,6 +49,9 @@ const Edit = () => {
             });
 
     };
+    const handleOnChange = (e)=>{
+        setIsChecked(e.target.checked)
+    }
     const deleteClickHandler = () => {
         setShowDeleteDialog(true)
     };
@@ -83,7 +88,7 @@ const Edit = () => {
                                 return (
                                     <div key={i} className="">
                                         <div  className="flex justify-center content-center mb-2 text-lg font-medium text-gray-900 dark:text-gray-300" >
-                                            <input  type="time" name="departure_time" id="departure_time"
+                                            <input  type="text" name="departure_time" id="departure_time"
                                                     value={x}  onChange={e => handleInputChange(e, i)}/>
                                         </div>
                                         <div   className="flex justify-center content-center mb-2 text-lg font-medium text-gray-900 dark:text-gray-300 gap-6">
@@ -102,7 +107,12 @@ const Edit = () => {
                                    className=" text-center bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             />
                         </div>
-
+                        <div className="flex justify-center content-center">
+                        <input className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer " type="checkbox" value="" id="flexCheckDefault"  checked={isChecked} onChange={handleOnChange}/>
+                        <label className="form-check-label inline-block text-gray-800" htmlFor="flexCheckDefault">
+                            Празнично
+                        </label>
+                        </div>
                         <div className=" flex justify-center content-center">
 
                             <button type="submit">

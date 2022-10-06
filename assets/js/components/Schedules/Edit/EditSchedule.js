@@ -16,13 +16,14 @@ const EditSchedule = () => {
     const [schedule,setSchedule] = useState(scheduleId);
     const [selectedStops, setSelectedStops] = useState([]);
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-    const [stops, setStops] = useState([]);
+    const [busStops, setBusStops] = useState([]);
+    let stopNames = [];
 
 
     useEffect(() => {
         stopService.getAll()
             .then(result => {
-                setStops(result);
+                setBusStops(result);
             })
             .catch(err => {
                 console.log(err);
@@ -56,15 +57,21 @@ const EditSchedule = () => {
         e.preventDefault();
         let formData = new FormData(e.currentTarget);
         let name = formData.get('name');
-        let currentStops = formData.getAll('currentStops');
         let stops = formData.getAll('stops');
 
 
+        stops.map(e => {
+            busStops.map(initialsStops => {
+                if (e == initialsStops.id) {
+                    stopNames.push(initialsStops.name)
 
+                }
+            })
+        })
         scheduleService.update(scheduleId,user.token,{
             name,
-            currentStops,
-            stops
+            stops,
+            stopNames,
         }, user.token)
             .then(result => {
                 navigate('/schedules');
@@ -87,7 +94,7 @@ const EditSchedule = () => {
                     </div>
                     <label className=" flex justify-center content-center" htmlFor="name">Спирки</label>
                     <div id="dropdown-basic-button" title="Спирки">
-                        {stops.map((element ,index) =>(
+                        {busStops.map((element ,index) =>(
                             <FormControlLabel
                                 key={index}
                                 control={<Checkbox name="stops"/>}
@@ -96,7 +103,6 @@ const EditSchedule = () => {
                             />
                         ))}
                     </div>
-
                     <ConfirmDialog  show={showDeleteDialog} onClose={() => setShowDeleteDialog(false)} onSave={() => deleteHandler(scheduleId)} />
                     <div className=" flex justify-center content-center">
                         <button type="submit">

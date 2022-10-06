@@ -23,6 +23,9 @@ const Administration = () => {
                 <Link to="/schedule-panel" >
                     <button  className="w-60 h-16 bg-red-500 text-white font-bold py-2 px-4 rounded">Разписания</button >
                 </Link>
+                <Link to="/view_all_messages" >
+                    <button  className="w-60 h-16 bg-red-500 text-white font-bold py-2 px-4 rounded">Съобщения</button >
+                </Link>
             </div>
         </section>
     );

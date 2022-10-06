@@ -40,7 +40,7 @@ const StopCreate = () => {
                             <label className="flex justify-center content-center mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 w-96">Име</label>
                             <input type="text" name="name" id="name"
                                    className=" text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   placeholder="Kostinbrod - Sofia"/>
+                                   placeholder="Ломско шосе - 61-во ОУ "/>
                         </div>
                         <div>
                             <label className="flex justify-center content-center mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Ширина</label>

@@ -44,7 +44,7 @@ const ScheduleTime = () => {
             scheduleName
         }, user.token)
             .then(result => {
-                navigate('/');
+                navigate('/schedules');
             })
     }
 
@@ -86,7 +86,7 @@ const ScheduleTime = () => {
 
                                         <div  className="flex justify-center content-center mb-2 text-lg font-medium text-gray-900 dark:text-gray-300" >
                                             <input
-                                                type="time" name="departure_time" id="departure_time" placeholder="8:45"
+                                                type="text" name="departure_time" id="departure_time" placeholder="8:45"
                                                 value={x.departure_time} onChange={e => handleInputChange(e, i)}/>
                                         </div>
                                         <div  className="flex justify-center content-center mb-2 text-lg font-medium text-gray-900 dark:text-gray-300 gap-6" >

@@ -2,7 +2,6 @@ import React, {StrictMode} from "react";
 import { Routes, Route, BrowserRouter as Router    } from 'react-router-dom';
 import Header from './components/Header';
 import ReactDOM from 'react-dom';
-import Register from './components/Register';
 import Login from "./components/Login";
 import  ErrorBoundary from './components/Common/ErrorBoundary';
 import {AuthProvider} from './contexts/AuthContext';
@@ -20,7 +19,8 @@ import AllSchedules from "./components/Schedules/Schedules";
 import EditSchedule from "./components/Schedules/Edit/EditSchedule";
 import ScheduleCreate from "./components/Schedules/Create/ScheduleCreate";
 import ScheduleTimePanel from "./components/ScheduleTimePanel/ScheduleTimePanel";
-
+import ViewAllMessages from  "./components/Contact/MessagesAdminPanel/ViewAllMessages"
+import MessageDetails  from "./components/Contact/MessageDetails/MessageDetails";
 
 
 
@@ -45,7 +45,6 @@ function App() {
                             <Route path="/stop" element={<StopCreate/>} />
                             <Route path="/ScheduleTime/:scheduleId" element={<ScheduleTime />} />
                             <Route path="/edit/:scheduleTimeId" element={<Edit />} />
-                            <Route path="/register" element={<Register />} />
                             <Route path="/stops" element={<AllStops />} />
                             <Route path="/schedules" element={<AllSchedules />} />
                             <Route path="/stops/editStop/:stopId" element={<EditStop />} />
@@ -53,7 +52,9 @@ function App() {
                             <Route path="/schedules/create" element={<ScheduleCreate />} />
                             <Route path="/stop/create" element={<StopCreate />} />
                             <Route path="/schedule-panel" element={<ScheduleTimePanel />} />
-
+                            <Route path="/logout" element={<Logout />} />
+                            <Route path="/view_all_messages" element={<ViewAllMessages />} />
+                            <Route path="/message/:messageId" element={<MessageDetails />} />
 
 
 
@@ -62,7 +63,7 @@ function App() {
 
                         <Route path="/login" element={<Login />} />
 
-                        <Route path="/logout" element={<Logout />} />
+
 
 
                     </Routes>

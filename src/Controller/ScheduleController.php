@@ -32,7 +32,8 @@ class ScheduleController extends AbstractController
             $arrayCollection[] = array(
                 'id' => $item->getId(),
                 'name'=>$item->getName(),
-                'stop_location'=>$item->getStopslocation()
+                'stop_location'=>$item->getStopslocation(),
+                'stops_names' =>$item->getStopsNames()
             );
         }
         return new JsonResponse($arrayCollection);
@@ -54,10 +55,9 @@ class ScheduleController extends AbstractController
         }else {
 
             $jsonData = json_decode($request->getContent());
-            dd($jsonData);
+
             $schedule = $this->scheduleRepository->create($jsonData);
             return new JsonResponse($schedule, Response::HTTP_OK);
-
         }
     }
 
@@ -86,7 +86,7 @@ class ScheduleController extends AbstractController
 
         empty($data['name']) ? true : $schedule->setName($data['name']);
         empty($data['stops']) ? true : $schedule->setStopslocation($data['stops']);
-        empty($data['currentStops']) ? true : $schedule->setStopslocation($data['stops']);
+        empty($data['stopNames']) ? true : $schedule->setStopsNames($data['stopNames']);
 
 
         $updatedSchedule = $this->scheduleRepository->update($schedule);

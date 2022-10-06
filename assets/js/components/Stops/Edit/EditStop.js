@@ -25,8 +25,6 @@ const EditStop = () => {
             .catch(err => {
                 console.log(err);
             })
-
-
     }, []);
 
     const deleteHandler = (e) => {
@@ -95,7 +93,7 @@ const EditStop = () => {
                                 </svg>
                             </button>
                             <Link to="/stops">
-                                <svg className="h-10 w-10 text-red-500" viewBox="0 0 24 24" fill="none"
+                                <svg className=" h-10 w-10 text-red-500" viewBox="0 0 24 24" fill="none"
                                      stroke="currentColor" strokeWidth="2" strokeLinecap="round"
                                      strokeLinejoin="round">
                                     <circle cx="12" cy="12" r="10"/>

@@ -107,7 +107,7 @@ class ScheduleTimeController extends AbstractController
 
             empty($data['departure_time']) ? true : $scheduleTime->setDepartureTime($data['departure_time']);
             empty($data['place']) ? true : $scheduleTime->setPlace($data['place']);
-            empty($data['isHolliday']) ? true : $scheduleTime->setIsHoliday($data['isHolliday']);
+            empty($data['isHoliday']) ? $scheduleTime->setIsHoliday(0)  : $scheduleTime->setIsHoliday($data['isHoliday']);
 
 
             $updatedSchedule = $this->scheduleTimeRepository->update($scheduleTime);

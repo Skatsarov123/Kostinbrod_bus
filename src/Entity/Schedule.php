@@ -27,6 +27,26 @@ class Schedule
      */
     private $stopslocation = [];
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $stopsNames = [];
+
+    /**
+     * @return array
+     */
+    public function getStopsNames(): array
+    {
+        return $this->stopsNames;
+    }
+
+    /**
+     * @param array $stopsNames
+     */
+    public function setStopsNames(array $stopsNames): void
+    {
+        $this->stopsNames = $stopsNames;
+    }
 
 
     public function getId(): ?int
