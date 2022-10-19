@@ -8,7 +8,7 @@ export const request = async (method, url, data) => {
             method,
             headers: {
                 'content-type': 'application/json',
-                'Authorization': getToken()
+                'Authorization': token
             },
             body: JSON.stringify(data)
         });

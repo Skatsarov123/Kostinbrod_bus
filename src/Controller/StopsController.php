@@ -4,7 +4,6 @@ namespace App\Controller;
 
 
 use App\Repository\StopsRepository;
-use JetBrains\PhpStorm\NoReturn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -108,42 +107,28 @@ class StopsController extends AbstractController
 
     }
 
-    #[Route('/findCurrent', name: 'find_current')]
-    public function findCurrent(Request $request): JsonResponse
-    {
 
-
-        $data = $this->stopsRepository-> findBy(array('id' => $request->get('stop_location')));
-
-
-        $arrayCollection = array();
-        foreach($data as $item) {
-            $arrayCollection[] = array(
-                'id' => $item->getId(),
-                'name'=>$item->getName(),
-                'latitude'=>$item->getLatitude(),
-                'longitude'=>$item->getLongitude()
-            );
-        }
-
-        return new JsonResponse($arrayCollection);
-
-    }
 
     #[Route('/update/{id}', name: 'stop_update')]
     public function edit( Request $request): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
-        $stop = $this->stopsRepository->findOneBy(['id'=>$request->get('id')]);
+        $apiToken = $request->headers->get('Authorization');
 
-        empty($data['name']) ? true : $stop->setName($data['name']);
-        empty($data['latitude']) ? true : $stop->setLatitude($data['latitude']);
-        empty($data['longitude']) ? true : $stop->setLongitude($data['longitude']);
+        if (null === $apiToken) {
 
-        $updatedStop = $this->stopsRepository->update($stop);
+            return new JsonResponse('No API token provided',403);
+        }else {
+            $data = json_decode($request->getContent(), true);
+            $stop = $this->stopsRepository->findOneBy(['id' => $request->get('id')]);
 
-        return new JsonResponse($updatedStop, Response::HTTP_OK);
+            empty($data['name']) ? true : $stop->setName($data['name']);
+            empty($data['latitude']) ? true : $stop->setLatitude($data['latitude']);
+            empty($data['longitude']) ? true : $stop->setLongitude($data['longitude']);
 
+            $updatedStop = $this->stopsRepository->update($stop);
+
+            return new JsonResponse($updatedStop, Response::HTTP_OK);
+        }
 
     }
 

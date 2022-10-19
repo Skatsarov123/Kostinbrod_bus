@@ -8,12 +8,20 @@ import React from "react";
 
 const createRoutineMachineLayer = (props) => {
 
+    const icon = L.icon({
+        iconUrl:
+            "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png",
+        iconSize: [40, 40]
+    });
+
     const {waypoints} = props;
     const instance = L.Routing.control({
+
         waypoints: waypoints,
         lineOptions: {
             styles: [{color: "#6FA1EC", weight: 4,}]
         },
+        icon:icon,
         show: false,
         addWaypoints: false,
         routeWhileDragging: false,
@@ -22,7 +30,6 @@ const createRoutineMachineLayer = (props) => {
         showAlternatives: false,
         extendToWaypoints: true,
         missingRouteTolerance: 10,
-
     })
     return instance;
 };

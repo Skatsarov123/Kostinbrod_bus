@@ -17,12 +17,14 @@ class AuthenticationSuccessListener
 
 
 
+
         if (!$user instanceof UserInterface) {
             return;
         }
 
         $data['username'] = $user->getUserIdentifier();
         $data['id'] =$user->getId();
+
 
 
         $event->setData($data);

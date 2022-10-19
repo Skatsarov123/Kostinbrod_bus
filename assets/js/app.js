@@ -1,5 +1,5 @@
 import React, {StrictMode} from "react";
-import { Routes, Route, BrowserRouter as Router    } from 'react-router-dom';
+import { Routes, Route, BrowserRouter as Router} from 'react-router-dom';
 import Header from './components/Header';
 import ReactDOM from 'react-dom';
 import Login from "./components/Login";
@@ -21,10 +21,14 @@ import ScheduleCreate from "./components/Schedules/Create/ScheduleCreate";
 import ScheduleTimePanel from "./components/ScheduleTimePanel/ScheduleTimePanel";
 import ViewAllMessages from  "./components/Contact/MessagesAdminPanel/ViewAllMessages"
 import MessageDetails  from "./components/Contact/MessageDetails/MessageDetails";
+import GDPR from "./components/GDPR";
+
+
 
 
 
 function App() {
+
 
         return (
 
@@ -35,12 +39,9 @@ function App() {
                 <Header/>
 
                 <main id="site-content">
+
                     <Routes>
-
-                        <Route path="/" element={<Dashboard/>} />
-
-
-                        <Route element={<GuardedRoute />}>
+                            <Route element={<GuardedRoute />}>
                             <Route path="/administration" element={<Administration />} />
                             <Route path="/stop" element={<StopCreate/>} />
                             <Route path="/ScheduleTime/:scheduleId" element={<ScheduleTime />} />
@@ -55,22 +56,18 @@ function App() {
                             <Route path="/logout" element={<Logout />} />
                             <Route path="/view_all_messages" element={<ViewAllMessages />} />
                             <Route path="/message/:messageId" element={<MessageDetails />} />
+                            </Route>
 
 
-
-
-                        </Route>
-
+                        <Route path="/" element={<Dashboard/>} />
                         <Route path="/login" element={<Login />} />
-
-
-
+                        {/*<Route path="/gdpr" element={<GDPR />} />*/}
 
                     </Routes>
+
                 </main>
-
-                <footer id="site-footer">
-
+                <footer
+                    id="site-footer">
                 </footer>
             </div>
                     </NotificationProvider>

@@ -6,7 +6,7 @@ import * as authService from '../../services/authService';
 
 const Login = () => {
     const { login } = useAuthContext();
-    const { addNotification }  = useNotificationContext();
+    const { addNotification,notification }  = useNotificationContext();
     const  navigate  = useNavigate();
 
     const onLoginHandler = (e) => {
@@ -24,7 +24,7 @@ const Login = () => {
 
             })
             .catch(err => {
-                // TODO: show notification
+                addNotification('Грешно потр.име или парола',types.error)
                 console.log(err);
             });
     }
@@ -38,16 +38,20 @@ const Login = () => {
                     <div className="mb-4">
                         <label className="block mb-1" >Username</label>
                         <input id="email" type="text" name="username" className="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" />
+
                     </div>
+
                     <div className="mb-4">
                         <label className="block mb-1" >Password</label>
                         <input id="password" type="password" name="password" className="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" />
+                        <span className="text-xs tracking-wide text-red-600">{notification.message} </span>
                     </div>
                     <div className="mt-6 flex items-center justify-between">
                     </div>
                     <div className="mt-6">
                         <button className="w-full inline-flex items-center justify-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold capitalize text-white hover:bg-red-700 active:bg-red-700 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200 disabled:opacity-25 transition">Влез</button>
                     </div>
+
 
                 </form>
             </div>

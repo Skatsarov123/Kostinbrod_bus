@@ -80,19 +80,25 @@ class ScheduleController extends AbstractController
     #[Route('/update/{id}', name: 'schedule_update')]
     public function edit( Request $request): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
+        $apiToken = $request->headers->get('Authorization');
 
-        $schedule = $this->scheduleRepository->findOneBy(['id'=>$request->get('id')]);
+        if (null === $apiToken) {
 
-        empty($data['name']) ? true : $schedule->setName($data['name']);
-        empty($data['stops']) ? true : $schedule->setStopslocation($data['stops']);
-        empty($data['stopNames']) ? true : $schedule->setStopsNames($data['stopNames']);
+            return new JsonResponse('No API token provided',403);
+        }else {
+            $data = json_decode($request->getContent(), true);
+
+            $schedule = $this->scheduleRepository->findOneBy(['id' => $request->get('id')]);
+
+            empty($data['name']) ? true : $schedule->setName($data['name']);
+            empty($data['stops']) ? true : $schedule->setStopslocation($data['stops']);
+            empty($data['stopNames']) ? true : $schedule->setStopsNames($data['stopNames']);
 
 
-        $updatedSchedule = $this->scheduleRepository->update($schedule);
+            $updatedSchedule = $this->scheduleRepository->update($schedule);
 
-        return new JsonResponse($updatedSchedule, Response::HTTP_OK);
-       
+            return new JsonResponse($updatedSchedule, Response::HTTP_OK);
+        }
 
     }
 

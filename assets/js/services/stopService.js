@@ -6,8 +6,6 @@ const baseUrl = 'http://localhost:8000/stops';
 
 export const getAll = () => request.get(`${baseUrl}/allStops`);
 
-export const findCurrent = (stopsIds) => request.get(`${baseUrl}/findCurrent`);
-
 export const create = async (stopData,token) => {
     let response = await fetch(`${baseUrl}/create`, {
         method: 'POST',

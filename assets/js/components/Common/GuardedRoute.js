@@ -5,7 +5,7 @@ import React from "react";
 const GuardedRoute = () => {
     const { isAuthenticated } = useAuthContext();
 
-    return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
+    return isAuthenticated ? <Outlet /> : <Navigate to="/" />
 }
 
 export default GuardedRoute;

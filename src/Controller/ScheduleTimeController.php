@@ -79,7 +79,7 @@ class ScheduleTimeController extends AbstractController
         $arrayCollection = [
             'place' => $data->getPlace(),
             'departure_time'=>$data->getDepartureTime(),
-            'isHolliday' =>$data->getIsHoliday()
+            'isHoliday' =>$data->getIsHoliday()
 
         ];
 
@@ -107,8 +107,13 @@ class ScheduleTimeController extends AbstractController
 
             empty($data['departure_time']) ? true : $scheduleTime->setDepartureTime($data['departure_time']);
             empty($data['place']) ? true : $scheduleTime->setPlace($data['place']);
-            empty($data['isHoliday']) ? $scheduleTime->setIsHoliday(0)  : $scheduleTime->setIsHoliday($data['isHoliday']);
-
+            if(isset($data['isHoliday'])) {
+                if ($data['isHoliday'] === false) {
+                    $scheduleTime->setIsHoliday(0);
+                } else {
+                    $scheduleTime->setIsHoliday(1);
+                }
+            }
 
             $updatedSchedule = $this->scheduleTimeRepository->update($scheduleTime);
 

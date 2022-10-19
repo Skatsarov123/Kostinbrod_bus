@@ -11,21 +11,16 @@ const useScheduleState = (scheduleId) => {
 
         return controller;
     }, [])
-
     useEffect (() => {
-
         scheduleTimeService.getOne(scheduleId, controller.signal)
             .then(scheduleResult => {
                 setSchedule(scheduleResult);
                 setStartTime(scheduleResult.departure_time)
-
             })
-
         return () => {
             controller.abort();
         }
     }, [scheduleId, controller]);
-
     return [
         schedule,
         startTime,

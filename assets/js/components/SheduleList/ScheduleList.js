@@ -1,9 +1,8 @@
 import ScheduleCard from "./ScheduleCard"
 import React from "react";
 
-const ScheduleList = ({
-                          schedules
-                      }) => {
+
+const ScheduleList = ({schedules}) => {
     return (
         <>
             {schedules.length > 0
@@ -11,6 +10,7 @@ const ScheduleList = ({
                 ? (
                     <div className='flex flex-col justify-center place-items-center gap-6 md:flex md:flex-row  '>
                         {schedules.map(x => <ScheduleCard key={x.id} schedule={x}/>)}
+
                     </div>
                 )
                 : <div className="flex justify-center items-center space-x-2">

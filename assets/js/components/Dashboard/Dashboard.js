@@ -3,20 +3,15 @@ import ScheduleList from "../SheduleList";
 import useInitialState from "../../hooks/useInitialState";
 import AboutUs from "../About/AboutUs";
 import Contact from "../Contact/Contact";
-
-
-
+import Footer from "../Footer";
 
 const Dashboard = () => {
 
     const [schedules, setSchedules] = useInitialState();
 
-
     return (
-
-
         <div>
-            <div className="  flex justify-center bg-gradient-to-r from-red-500 text-4xl  flex justify-center content-center text-white w-full py-5 my-5">РАЗПИСАНИЕ</div>
+            <div className="  flex justify-center bg-gradient-to-r from-red-500 text-4xl  flex justify-center content-center text-white w-full py-3 ">РАЗПИСАНИЕ</div>
             <div className="flex justify-center">
                 <svg className="block my-auto h-56 w-56 text-red-500" width="24" height="24" viewBox="0 0 24 24"
                      strokeWidth="2"
@@ -38,8 +33,8 @@ const Dashboard = () => {
             </div>
             <AboutUs/>
             <Contact/>
+            <Footer/>
         </div>
-
     );
 }
 

@@ -6,12 +6,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <title>{% block title %}Welcome!{% endblock %}</title>
-
+    <link rel="shortcut icon" href="https://freepngimg.com/download/bus/1-bus-png-image.png">
 </head>
 <body>
 {% block body %} {% endblock %}
 </body>
 {% block stylesheets %}
+    <link href="{{ asset('css/leaflet.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/leaflet-routing-machine.css') }}" rel="stylesheet" />
+
     {{ encore_entry_link_tags('tailwind') }}
 {% endblock %}
 {% block javascripts %}
